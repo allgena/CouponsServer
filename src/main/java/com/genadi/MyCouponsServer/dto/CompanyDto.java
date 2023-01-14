@@ -9,12 +9,14 @@ public class CompanyDto {
     private long companyId;
     private String companyName;
     private List<Coupon> coupons;
+    private int numberPurchases;
 
 
-    public CompanyDto(long companyId, String companyName, List<Coupon> coupons) {
+    public CompanyDto(long companyId, String companyName, List<Coupon> coupons, int numberPurchases) {
         this.companyId = companyId;
         this.companyName = companyName;
         this.coupons = coupons;
+        this.numberPurchases = numberPurchases;
     }
 
     public long getCompanyId() {
@@ -50,5 +52,13 @@ public class CompanyDto {
 
     public void setCoupons(List<Coupon> coupons) {
         this.coupons = coupons;
+    }
+
+    public int getNumberPurchases() {
+        return numberPurchases;
+    }
+
+    public void setNumberPurchases(int numberPurchases) {
+        this.numberPurchases = numberPurchases;
     }
 }
