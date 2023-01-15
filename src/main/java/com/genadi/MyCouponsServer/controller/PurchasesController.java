@@ -2,7 +2,6 @@ package com.genadi.MyCouponsServer.controller;
 
 import com.genadi.MyCouponsServer.bean.Purchase;
 import com.genadi.MyCouponsServer.dal.IPurchaseRepository;
-import com.genadi.MyCouponsServer.logic.PurchasesLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
