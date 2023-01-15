@@ -1,10 +1,9 @@
 package com.genadi.MyCouponsServer.controller;
 
-import com.genadi.MyCouponsServer.bean.Coupon;
 import com.genadi.MyCouponsServer.bean.Purchase;
 import com.genadi.MyCouponsServer.dal.IPurchaseRepository;
+import com.genadi.MyCouponsServer.logic.PurchasesLogic;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,35 +11,41 @@ import org.springframework.web.bind.annotation.*;
 public class PurchasesController {
     private IPurchaseRepository purchaseRepository;
 
+
     @Autowired
     public PurchasesController(IPurchaseRepository purchaseRepository) {
         this.purchaseRepository = purchaseRepository;
+
     }
 
-    @PostMapping("purchase")
-    public long createPurchase(Purchase purchase) {
-        purchaseRepository.save(purchase);
-        return purchase.getId();
+//    @GetMapping("{purchaseId}")
+//    public Iterable<Purchase> getCoupons() {
+//        return purchaseRepository.findAll();
+//    }
+
+    @PostMapping
+    public Purchase createPurchase(@RequestBody Purchase purchase) {
+        return purchaseRepository.save(purchase);
     }
 
-    @PutMapping("/{purchaseId")
-    public void updatePurchase(@PathVariable("purchaseId") @RequestBody Purchase purchase) {
-        purchaseRepository.save(purchase);
+    @PutMapping
+    public Purchase updatePurchase(@RequestBody Purchase purchase) {
+        return purchaseRepository.save(purchase);
     }
 
-    @GetMapping("/{purchaseId")
-    public Purchase getPurchase(@PathVariable("purchaseId") long id) {
-        return purchaseRepository.findById(id).get();
-    }
 
     @GetMapping
     public Iterable<Purchase> getAllPurchases() {
         return purchaseRepository.findAll();
     }
 
-    @DeleteMapping("/{purchaseId}")
+    @DeleteMapping("{purchaseId}")
     public void deletePurchase(@PathVariable("purchaseId") long id) {
         purchaseRepository.deleteById(id);
+    }
+    @GetMapping("/{purchaseId}")
+    public Purchase getById(@PathVariable("purchaseId") long id){
+        return purchaseRepository.findById(id).get();
     }
 
 }

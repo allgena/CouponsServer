@@ -3,7 +3,6 @@ package com.genadi.MyCouponsServer.controller;
 import com.genadi.MyCouponsServer.bean.Coupon;
 import com.genadi.MyCouponsServer.dal.ICompanyRepository;
 import com.genadi.MyCouponsServer.dal.ICouponRepository;
-import com.genadi.MyCouponsServer.logic.CouponsLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
