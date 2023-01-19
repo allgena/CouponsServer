@@ -1,10 +1,8 @@
 package com.genadi.MyCouponsServer.controller;
 
-import com.genadi.MyCouponsServer.bean.Coupon;
 import com.genadi.MyCouponsServer.bean.Customer;
 import com.genadi.MyCouponsServer.dal.ICustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.rmi.ServerException;
@@ -41,7 +39,7 @@ public class CustomerController {
         customerRepository.save(customer);
     }
 
-    @DeleteMapping("/{customerId")
+    @DeleteMapping("/{customerId}")
     public void deleteCustomer(@PathVariable("customerId") long id) throws ServerException {
         customerRepository.deleteById(id);
     }
