@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+
+
 @Service
 public class PurchasesLogic {
     private IPurchaseRepository purchaseRepository;
@@ -12,7 +14,7 @@ public class PurchasesLogic {
     @Autowired
     public PurchasesLogic(IPurchaseRepository purchaseRepository) {
         this.purchaseRepository = purchaseRepository;
-
-
     }
+
+
 }

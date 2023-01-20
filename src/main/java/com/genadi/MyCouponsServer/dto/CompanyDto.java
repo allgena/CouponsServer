@@ -35,17 +35,6 @@ public class CompanyDto {
         this.companyName = companyName;
     }
 
-
-
-    @Override
-    public String toString() {
-        return "CompaniesDto{" +
-                "companyId=" + companyId +
-                ", companyName='" + companyName + '\'' +
-
-                '}';
-    }
-
     public List<Coupon> getCoupons() {
         return coupons;
     }
@@ -60,5 +49,14 @@ public class CompanyDto {
 
     public void setNumberPurchases(int numberPurchases) {
         this.numberPurchases = numberPurchases;
+    }
+
+    @Override
+    public String toString() {
+        return "CompaniesDto{" +
+                "companyId=" + companyId +
+                ", companyName='" + companyName + '\'' +
+
+                '}';
     }
 }

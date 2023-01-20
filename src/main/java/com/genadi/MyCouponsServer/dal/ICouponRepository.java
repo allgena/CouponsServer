@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface ICouponRepository extends CrudRepository<Coupon,Long> {
         List<Coupon> findByCompanyId(long companyId);
+
+    List<Coupon> findByCustomerId(long id);
 }

@@ -27,10 +27,6 @@ public class Coupon {
     @Column
     private long companyId;
 
-//      @ManyToOne
-//    @JoinColumn(name = "category_ID")
-//    private CouponCategory category;
-
     public Coupon() {
     }
 
