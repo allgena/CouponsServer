@@ -5,6 +5,7 @@ import com.genadi.MyCouponsServer.bean.Coupon;
 import com.genadi.MyCouponsServer.dal.ICompanyRepository;
 import com.genadi.MyCouponsServer.dal.ICouponRepository;
 import com.genadi.MyCouponsServer.dto.CompanyDto;
+import com.genadi.MyCouponsServer.dto.CouponsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class CompaniesLogic {
 
     public CompanyDto getCompanyCoupons(long id) {
         CompanyDto company = companyRepository.findCompanyById(id);
-        List<Coupon> couponList = couponRepository.findByCompanyId(id);
+
 
         return company;
     }
