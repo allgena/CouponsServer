@@ -30,11 +30,6 @@ public class Coupon {
     public Coupon() {
     }
 
-    public Coupon(long id, String couponName, CouponCategory category,float price, String description, Date startDate, Date endDate,  long companyId) {
-        this(couponName, category,price, description, startDate, endDate, companyId);
-        this.id = id;
-    }
-
     public Coupon(String couponName, CouponCategory category, float price, String description, Date startDate, Date endDate,  long companyId) {
         this.couponName = couponName;
         this.category=category;
