@@ -28,10 +28,9 @@ public class CompaniesLogic {
     }
 
     public CompanyDto getCompanyCoupons(long id) {
-        Company company = companyRepository.findById(id).get();
+        CompanyDto company = companyRepository.findCompanyById(id);
         List<Coupon> couponList = couponRepository.findByCompanyId(id);
-        CompanyDto result = new CompanyDto(company.getId(), company.getCompanyName(), couponList, 10);
 
-        return result;
+        return company;
     }
 }

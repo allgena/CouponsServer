@@ -11,6 +11,10 @@ public class CompanyDto {
     private List<Coupon> coupons;
     private int numberPurchases;
 
+    public CompanyDto(long companyId, String companyName){
+        this.companyId = companyId;
+        this.companyName = companyName;
+    }
 
     public CompanyDto(long companyId, String companyName, List<Coupon> coupons, int numberPurchases) {
         this.companyId = companyId;
