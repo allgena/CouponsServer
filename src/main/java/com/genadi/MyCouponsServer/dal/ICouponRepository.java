@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface ICouponRepository extends CrudRepository<Coupon,Long> {
-        @Query(value = "select new com.genadi.MyCouponsServer.dto.CouponsDto(c.id, c.couponName, cmp.companyName, c.price, 0) from Coupon c " +
+        @Query(value = "select new com.genadi.MyCouponsServer.dto.CouponsDto(c.id, c.couponName, cmp.companyName, c.price,  c.startDate, c.endDate, 0) from Coupon c " +
                 "LEFT JOIN  Company cmp ON cmp.id = c.companyId "+
                 "where c.companyId = :companyId")
                 List<CouponsDto> findByCompanyId(long companyId);

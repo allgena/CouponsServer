@@ -1,6 +1,7 @@
 package com.genadi.MyCouponsServer.dto;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 public class CouponsDto {
 
@@ -13,15 +14,6 @@ public class CouponsDto {
 
     private int amountOfPurchases;
 
-
-    public CouponsDto(long couponId, String couponName, String companyName,float price,int amountOfPurchases){
-        this.couponId = couponId;
-        this.couponName = couponName;
-        this.companyName = companyName;
-        this.price = price;
-        this.amountOfPurchases=amountOfPurchases;
-
-    }
     public CouponsDto(long couponId, String couponName, String companyName, float price, Date startDate, Date endDate,int amountOfPurchases) {
         this.couponId = couponId;
         this.couponName = couponName;
