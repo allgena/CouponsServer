@@ -30,8 +30,6 @@ public class CompaniesLogic {
 
     public CompanyDto getCompanyCoupons(long id) {
         CompanyDto company = companyRepository.findCompanyById(id);
-
-
         return company;
     }
 }
