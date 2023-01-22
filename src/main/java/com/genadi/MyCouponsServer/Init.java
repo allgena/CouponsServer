@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 @Component
 public class Init implements CommandLineRunner {
