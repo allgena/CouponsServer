@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CompaniesLogic {
@@ -66,10 +67,13 @@ public class CompaniesLogic {
         coupon1 = couponRepository.save(coupon1);
         coupon2 = couponRepository.save(coupon2);
 
-        purchaseRepository.save(new Purchase(14, coupon1.getId(),2));
-        purchaseRepository.save(new Purchase(14, coupon2.getId(),2));
-        purchaseRepository.save(new Purchase(13, coupon1.getId(),5));
-        purchaseRepository.save(new Purchase(13, coupon2.getId(),5));
+        Customer customerA = customerRepository.findById(4L).get();
+        Customer customerB = customerRepository.findById(5L).get();
+
+        purchaseRepository.save(new Purchase(customerA, coupon1,2));
+        purchaseRepository.save(new Purchase(customerA, coupon2,2));
+        purchaseRepository.save(new Purchase(customerB, coupon1,5));
+        purchaseRepository.save(new Purchase(customerB, coupon2,5));
         return company;
 
     }

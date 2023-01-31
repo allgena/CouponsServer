@@ -8,18 +8,20 @@ public class Purchase {
     @Id
     @GeneratedValue
     private long id;
-    @Column
-    private long customerId;
-    @Column
-    private long couponId;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+    @ManyToOne
+    @JoinColumn(name = "coupon_id")
+    private Coupon coupon;
     @Column
     private int amountOfPurchased;
 
     public Purchase(){}
 
-    public Purchase(long customerId, long couponId, int amountOfPurchased) {
-        this.customerId = customerId;
-        this.couponId = couponId;
+    public Purchase(Customer customer, Coupon coupon, int amountOfPurchased) {
+        this.customer = customer;
+        this.coupon = coupon;
         this.amountOfPurchased = amountOfPurchased;
     }
 
@@ -31,21 +33,6 @@ public class Purchase {
         this.id = id;
     }
 
-    public long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(long customerId) {
-        this.customerId = customerId;
-    }
-
-    public long getCouponId() {
-        return couponId;
-    }
-
-    public void setCouponId(long couponId) {
-        this.couponId = couponId;
-    }
 
     public int getAmountOfPurchased() {
         return amountOfPurchased;
@@ -59,9 +46,25 @@ public class Purchase {
     public String toString() {
         return "Purchase{" +
                 "id=" + id +
-                ", customerId=" + customerId +
-                ", couponId=" + couponId +
+                ", customer=" + customer +
+                ", coupon=" + coupon +
                 ", amountOfPurchased=" + amountOfPurchased +
                 '}';
+    }
+
+    public Coupon getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(Coupon coupon) {
+        this.coupon = coupon;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }
