@@ -61,8 +61,8 @@ public class CompaniesLogic {
         User companyUser = new User(companyName, UserType.COMPANY, "pass", "phoneNumber");
         companyUser.setCompany(company);
         userRepository.save(companyUser);
-        Coupon coupon1 = couponRepository.save(new Coupon("coupon1", CouponCategory.FOOD, 10.0F, "Coupon 1 of "+companyName, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusDays(2)), company.getId()));
-        Coupon coupon2 = couponRepository.save(new Coupon("coupon2", CouponCategory.FOOD, 20.0F, "Coupon 2 of "+companyName, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusDays(2)), company.getId()));
+        Coupon coupon1 = couponRepository.save(new Coupon("coupon1", CouponCategory.FOOD, 10.0F, "Coupon 1 of "+companyName, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusDays(2)), company));
+        Coupon coupon2 = couponRepository.save(new Coupon("coupon2", CouponCategory.FOOD, 20.0F, "Coupon 2 of "+companyName, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusDays(2)), company));
         coupon1 = couponRepository.save(coupon1);
         coupon2 = couponRepository.save(coupon2);
 

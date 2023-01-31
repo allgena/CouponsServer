@@ -24,25 +24,26 @@ public class Coupon {
     private Date startDate;
     @Column
     private Date endDate;
-    @Column
-    private long companyId;
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
 
     public Coupon() {
     }
 
-    public Coupon(long id, String couponName, CouponCategory category,float price, String description, Date startDate, Date endDate,  long companyId) {
-        this(couponName, category,price, description, startDate, endDate, companyId);
+    public Coupon(long id, String couponName, CouponCategory category,float price, String description, Date startDate, Date endDate,  Company company) {
+        this(couponName, category,price, description, startDate, endDate, company);
         this.id = id;
     }
 
-    public Coupon(String couponName, CouponCategory category, float price, String description, Date startDate, Date endDate,  long companyId) {
+    public Coupon(String couponName, CouponCategory category, float price, String description, Date startDate, Date endDate,  Company company) {
         this.couponName = couponName;
         this.category=category;
         this.price = price;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.companyId = companyId;
+        this.company = company;
     }
 
 
@@ -102,13 +103,6 @@ public class Coupon {
         this.endDate = endDate;
     }
 
-    public long getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(long companyId) {
-        this.companyId = companyId;
-    }
 
     @Override
     public String toString() {
@@ -120,7 +114,15 @@ public class Coupon {
                 ", description='" + description + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", companyId=" + companyId +
+                ", company=" + company +
                 '}';
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

@@ -39,8 +39,8 @@ public class CouponsController {
 
     @PostMapping
     public Coupon createCoupon(@RequestBody Coupon coupon) {
-        if (companyRepository.findById(coupon.getCompanyId()).isEmpty()) {
-            throw new RuntimeException("Company with Id" + coupon.getCompanyId() + " does not exist");
+        if (coupon.getCompany() == null) {
+            throw new RuntimeException("please provide company");
         }
         return couponRepository.save(coupon);
     }
