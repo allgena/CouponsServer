@@ -2,9 +2,14 @@ package com.genadi.MyCouponsServer;
 
 import com.genadi.MyCouponsServer.bean.Company;
 import com.genadi.MyCouponsServer.bean.Coupon;
+import com.genadi.MyCouponsServer.bean.Customer;
+import com.genadi.MyCouponsServer.bean.User;
 import com.genadi.MyCouponsServer.dal.ICompanyRepository;
 import com.genadi.MyCouponsServer.dal.ICouponRepository;
+import com.genadi.MyCouponsServer.dal.ICustomerRepository;
 import com.genadi.MyCouponsServer.enams.CouponCategory;
+import com.genadi.MyCouponsServer.enams.UserType;
+import com.genadi.MyCouponsServer.logic.CompaniesLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -17,6 +22,12 @@ import java.time.LocalDate;
 public class Init implements CommandLineRunner {
     @Value(("${spring.jpa.hibernate.ddl-auto:update}"))
     private String initDb;
+
+    @Autowired
+    CompaniesLogic companiesLogic;
+
+    @Autowired
+    ICustomerRepository customerRepository;
 
     @Autowired
     ICompanyRepository companyRepository;
@@ -34,11 +45,16 @@ public class Init implements CommandLineRunner {
     }
 
     private void loadStartupData() {
-        Company comp1=companyRepository.save(new Company("comp1", "Comp1 address", "010101"));
-        Company comp2 = companyRepository.save(new Company("comp2", "Comp2 address", "020202"));
+        User user1 = new User("customer1", UserType.CUSTOMER, "pass", "phoneNumber");
+        User user2 = new User("customer2", UserType.CUSTOMER, "pass", "phoneNumber");
+        Customer customer1 = new Customer(user1.getUserName(), user1, "address", "phone");
+        Customer customer2 = new Customer(user2.getUserName(), user2, "address", "phone");
+        customerRepository.save(customer1);
+        customerRepository.save(customer2);
 
-        Coupon coupon1 = couponRepository.save(new Coupon("coupon1", CouponCategory.FOOD, 10.0F, "Coupon 1 of company 1", Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusDays(2)), comp1));
-        Coupon coupon2 = couponRepository.save(new Coupon("coupon2", CouponCategory.FOOD, 10.0F, "Coupon 2 of company 1", Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusDays(2)), comp1));
+       companiesLogic.createCompanyData("Test1");
+       companiesLogic.createCompanyData("Test2");
+       companiesLogic.createCompanyData("Test3");
     }
 
 }

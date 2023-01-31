@@ -67,8 +67,8 @@ public class CompaniesLogic {
         coupon1 = couponRepository.save(coupon1);
         coupon2 = couponRepository.save(coupon2);
 
-        Customer customerA = customerRepository.findById(4L).get();
-        Customer customerB = customerRepository.findById(5L).get();
+        Customer customerA = customerRepository.findById(1L).get();
+        Customer customerB = customerRepository.findById(2L).get();
 
         purchaseRepository.save(new Purchase(customerA, coupon1,2));
         purchaseRepository.save(new Purchase(customerA, coupon2,2));
