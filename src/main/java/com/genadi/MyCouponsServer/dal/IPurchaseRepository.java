@@ -14,4 +14,6 @@ public interface IPurchaseRepository extends CrudRepository<Purchase,Long> {
     void deleteByCouponId(long couponId);
 
     List<Purchase> findByCouponId(long couponId);
+    @Query(value = "select sum(amount_of_purchased) from purchases where coupon_id=:couponId", nativeQuery = true)
+    Integer findPurchaseCountByCouponId(long couponId);
 }

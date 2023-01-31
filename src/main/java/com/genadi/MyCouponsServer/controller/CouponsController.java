@@ -3,6 +3,7 @@ package com.genadi.MyCouponsServer.controller;
 import com.genadi.MyCouponsServer.bean.Coupon;
 import com.genadi.MyCouponsServer.dal.ICompanyRepository;
 import com.genadi.MyCouponsServer.dal.ICouponRepository;
+import com.genadi.MyCouponsServer.dal.IPurchaseRepository;
 import com.genadi.MyCouponsServer.dto.CouponsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,12 @@ public class CouponsController {
     private ICouponRepository couponRepository;
     private ICompanyRepository companyRepository;
 
+    private IPurchaseRepository purchaseRepository;
     @Autowired
-    public CouponsController(ICouponRepository couponRepository, ICompanyRepository companyRepository) {
+    public CouponsController(ICouponRepository couponRepository, ICompanyRepository companyRepository,IPurchaseRepository purchaseRepository) {
         this.couponRepository = couponRepository;
         this.companyRepository = companyRepository;
+        this.purchaseRepository = purchaseRepository;
     }
 
     @GetMapping
@@ -54,6 +57,11 @@ public class CouponsController {
 
     @GetMapping("/company/{companyId}")
     public List<CouponsDto> getCouponsByCompanyId(@PathVariable long companyId) {
-        return couponRepository.findCouponsDtoByCompanyId(companyId);
+        List<CouponsDto> coupons = couponRepository.findCouponsDtoByCompanyId(companyId);
+        for (CouponsDto coupon: coupons){
+            Integer numberOfPurchases= purchaseRepository.findPurchaseCountByCouponId(coupon.getCouponId());
+            coupon.setAmountOfPurchases(numberOfPurchases);
+        }
+        return coupons;
     }
 }

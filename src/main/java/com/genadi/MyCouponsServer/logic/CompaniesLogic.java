@@ -67,6 +67,8 @@ public class CompaniesLogic {
         coupon2 = couponRepository.save(coupon2);
 
         purchaseRepository.save(new Purchase(14, coupon1.getId(),2));
+        purchaseRepository.save(new Purchase(14, coupon2.getId(),2));
+        purchaseRepository.save(new Purchase(13, coupon1.getId(),5));
         purchaseRepository.save(new Purchase(13, coupon2.getId(),5));
         return company;
 
