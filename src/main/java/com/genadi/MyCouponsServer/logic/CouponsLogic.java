@@ -18,7 +18,7 @@ public class CouponsLogic {
     }
 
     public List<CouponsDto> getCouponsByCompanyId(long companyId){
-        return couponRepository.findByCompanyId(companyId);
+        return couponRepository.findCouponsDtoByCompanyId(companyId);
     }
 
 }

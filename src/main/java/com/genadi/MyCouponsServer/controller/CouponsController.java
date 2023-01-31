@@ -54,6 +54,6 @@ public class CouponsController {
 
     @GetMapping("/company/{companyId}")
     public List<CouponsDto> getCouponsByCompanyId(@PathVariable long companyId) {
-        return couponRepository.findByCompanyId(companyId);
+        return couponRepository.findCouponsDtoByCompanyId(companyId);
     }
 }

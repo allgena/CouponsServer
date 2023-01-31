@@ -17,8 +17,7 @@ public class Purchase {
 
     public Purchase(){}
 
-    public Purchase(long id, long customerId, long couponId, int amountOfPurchased) {
-        this.id = id;
+    public Purchase(long customerId, long couponId, int amountOfPurchased) {
         this.customerId = customerId;
         this.couponId = couponId;
         this.amountOfPurchased = amountOfPurchased;

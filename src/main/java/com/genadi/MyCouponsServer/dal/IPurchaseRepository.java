@@ -7,8 +7,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.rmi.ServerException;
+import java.util.List;
 
 @Repository
 public interface IPurchaseRepository extends CrudRepository<Purchase,Long> {
+    void deleteByCouponId(long couponId);
 
+    List<Purchase> findByCouponId(long couponId);
 }

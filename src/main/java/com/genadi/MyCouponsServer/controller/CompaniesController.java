@@ -44,11 +44,16 @@ public class CompaniesController {
 
     @DeleteMapping("/{companyId}")
     public void deleteCompany(@PathVariable("companyId") long id) {
-        companyRepository.deleteById(id);
+        companiesLogic.deleteCompanyById(id);
     }
 
     @GetMapping("coupons/{companyId}")
     public CompanyDto getCompanyCoupons(@PathVariable("companyId") long id) {
         return companiesLogic.getCompanyCoupons(id);
+    }
+
+    @PostMapping("/createdata")
+    public Company createAllData(@RequestParam String companyName){
+        return  companiesLogic.createCompanyData(companyName);
     }
 }
