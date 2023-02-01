@@ -6,7 +6,4 @@ public class UsersDto {
     private String address;
 
 
-
-
-
 }

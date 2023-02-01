@@ -17,11 +17,6 @@ public class PurchasesController {
 
     }
 
-//    @GetMapping("{purchaseId}")
-//    public Iterable<Purchase> getCoupons() {
-//        return purchaseRepository.findAll();
-//    }
-
     @PostMapping
     public Purchase createPurchase(@RequestBody Purchase purchase) {
         return purchaseRepository.save(purchase);

@@ -52,7 +52,7 @@ public class CompaniesController {
         return companiesLogic.getCompanyCoupons(id);
     }
 
-    @PostMapping("/createdata")
+    @PostMapping("/createData")
     public Company createAllData(@RequestParam String companyName){
         return  companiesLogic.createCompanyData(companyName);
     }

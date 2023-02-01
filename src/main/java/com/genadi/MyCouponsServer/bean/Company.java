@@ -66,12 +66,5 @@ public class Company {
         this.phoneNumber = phoneNumber;
     }
 
-//    public List<User> getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(List<User> employees) {
-//        this.users = users;
-//    }
 
 }
