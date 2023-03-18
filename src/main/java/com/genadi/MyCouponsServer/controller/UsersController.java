@@ -1,6 +1,7 @@
 package com.genadi.MyCouponsServer.controller;
 
 import com.genadi.MyCouponsServer.bean.User;
+import com.genadi.MyCouponsServer.dto.LoginDetailsDTO;
 import com.genadi.MyCouponsServer.logic.UsersLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,5 +41,10 @@ public class UsersController {
     @GetMapping
     public Iterable<User> getAllUsers()  {
         return usersLogic.findAll();
+    }
+
+    @PostMapping("login")
+    public String userLogin(@RequestBody LoginDetailsDTO userDetails){
+        return usersLogic.login(userDetails);
     }
 }

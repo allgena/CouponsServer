@@ -2,6 +2,8 @@ package com.genadi.MyCouponsServer.logic;
 
 import com.genadi.MyCouponsServer.bean.User;
 import com.genadi.MyCouponsServer.dal.IUserRepository;
+import com.genadi.MyCouponsServer.dto.LoginDetailsDTO;
+import com.genadi.MyCouponsServer.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,18 @@ public class UsersLogic {
 
     public Iterable<User> findAll() {
         return userRepository.findAll();
+    }
+
+    public String login(LoginDetailsDTO userDetails) {
+        User user = userRepository.findByUserName(userDetails.getUserName());
+        if (user == null)
+            throw  new RuntimeException("User not found");
+
+        if (!user.getPassword().equals(userDetails.getPassword()))
+            throw  new RuntimeException("User unauthorised");
+
+
+        return JwtUtils.createJwtToken(user);
     }
 }
 

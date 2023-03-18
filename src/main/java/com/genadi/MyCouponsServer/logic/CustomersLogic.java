@@ -27,4 +27,12 @@ public class CustomersLogic {
             result = optionalCustomer.get();
         return result;
     }
+
+    public Iterable<Customer> findAll() {
+        return customerRepository.findAll();
+    }
+
+    public void deleteById(long id) {
+        customerRepository.deleteById(id);
+    }
 }
