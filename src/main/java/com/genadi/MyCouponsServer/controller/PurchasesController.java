@@ -1,45 +1,45 @@
 package com.genadi.MyCouponsServer.controller;
 
 import com.genadi.MyCouponsServer.bean.Purchase;
-import com.genadi.MyCouponsServer.dal.IPurchaseRepository;
+import com.genadi.MyCouponsServer.logic.PurchasesLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/purchases")
 public class PurchasesController {
-    private IPurchaseRepository purchaseRepository;
+    private PurchasesLogic purchasesLogic;
 
 
     @Autowired
-    public PurchasesController(IPurchaseRepository purchaseRepository) {
-        this.purchaseRepository = purchaseRepository;
+    public PurchasesController(PurchasesLogic purchasesLogic) {
+        this.purchasesLogic = purchasesLogic;
 
     }
 
     @PostMapping
     public Purchase createPurchase(@RequestBody Purchase purchase) {
-        return purchaseRepository.save(purchase);
+        return purchasesLogic.save(purchase);
     }
 
     @PutMapping
     public Purchase updatePurchase(@RequestBody Purchase purchase) {
-        return purchaseRepository.save(purchase);
+        return purchasesLogic.save(purchase);
     }
 
 
     @GetMapping
     public Iterable<Purchase> getAllPurchases() {
-        return purchaseRepository.findAll();
+        return purchasesLogic.findAll();
     }
 
     @DeleteMapping("{purchaseId}")
     public void deletePurchase(@PathVariable("purchaseId") long id) {
-        purchaseRepository.deleteById(id);
+        purchasesLogic.deleteById(id);
     }
     @GetMapping("/{purchaseId}")
     public Purchase getById(@PathVariable("purchaseId") long id){
-        return purchaseRepository.findById(id).get();
+        return purchasesLogic.findById(id);
     }
 
 }

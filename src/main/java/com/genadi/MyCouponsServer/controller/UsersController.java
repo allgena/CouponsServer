@@ -1,7 +1,7 @@
 package com.genadi.MyCouponsServer.controller;
 
 import com.genadi.MyCouponsServer.bean.User;
-import com.genadi.MyCouponsServer.dal.IUserRepository;
+import com.genadi.MyCouponsServer.logic.UsersLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,36 +9,36 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UsersController {
 
-    private IUserRepository userRepository;
+    private UsersLogic usersLogic;
 
     @Autowired
-    public UsersController(IUserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UsersController(UsersLogic usersLogic) {
+        this.usersLogic = usersLogic;
     }
 
     @PostMapping
     public User createUser(@RequestBody  User user){
-        return userRepository.save(user);
+        return usersLogic.save(user);
     }
 
     @PutMapping
     public void updateUser(@RequestBody User user) {
-        userRepository.save(user);
+        usersLogic.save(user);
     }
 
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable("userId") long id) {
-        userRepository.deleteById(id);
+        usersLogic.deleteById(id);
     }
 
     @GetMapping("{userId}")
     public User getUserById(@PathVariable("userId") long id) {
-        return userRepository.findById(id).get();
+        return usersLogic.getUserById(id);
 
     }
 
     @GetMapping
     public Iterable<User> getAllUsers()  {
-        return userRepository.findAll();
+        return usersLogic.findAll();
     }
 }

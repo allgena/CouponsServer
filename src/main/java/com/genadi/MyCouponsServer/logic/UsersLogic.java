@@ -14,9 +14,21 @@ public class UsersLogic {
         this.userRepository = userRepository;
     }
 
-    private User getUserById(long id) {
+    public User getUserById(long id) {
         return userRepository.findById(id).get();
     }
 
+    public User save (User user)
+    {
+        return userRepository.save(user);
+    }
+
+    public void deleteById(long id) {
+        userRepository.deleteById(id);
+    }
+
+    public Iterable<User> findAll() {
+        return userRepository.findAll();
+    }
 }
 

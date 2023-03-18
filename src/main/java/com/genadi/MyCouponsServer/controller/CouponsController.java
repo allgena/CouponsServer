@@ -1,40 +1,37 @@
 package com.genadi.MyCouponsServer.controller;
 
 import com.genadi.MyCouponsServer.bean.Coupon;
-import com.genadi.MyCouponsServer.dal.ICompanyRepository;
-import com.genadi.MyCouponsServer.dal.ICouponRepository;
-import com.genadi.MyCouponsServer.dal.IPurchaseRepository;
 import com.genadi.MyCouponsServer.dto.CouponsDto;
+import com.genadi.MyCouponsServer.logic.CompaniesLogic;
+import com.genadi.MyCouponsServer.logic.CouponsLogic;
+import com.genadi.MyCouponsServer.logic.PurchasesLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/coupons")
 public class CouponsController {
-    private ICouponRepository couponRepository;
-    private ICompanyRepository companyRepository;
+    private CouponsLogic couponsLogic;
+    private CompaniesLogic companiesLogic;
 
-    private IPurchaseRepository purchaseRepository;
+    private PurchasesLogic purchasesLogic;
     @Autowired
-    public CouponsController(ICouponRepository couponRepository, ICompanyRepository companyRepository,IPurchaseRepository purchaseRepository) {
-        this.couponRepository = couponRepository;
-        this.companyRepository = companyRepository;
-        this.purchaseRepository = purchaseRepository;
+    public CouponsController(CouponsLogic couponsLogic, CompaniesLogic companiesLogic, PurchasesLogic purchasesLogic) {
+        this.couponsLogic = couponsLogic;
+        this.companiesLogic = companiesLogic;
+        this.purchasesLogic = purchasesLogic;
     }
 
     @GetMapping
     public Iterable<Coupon> getCoupons() {
-        return couponRepository.findAll();
+        return couponsLogic.findAll();
     }
 
     @GetMapping("/{couponId}")
     public Coupon getCoupon(@PathVariable("couponId") long id) {
-        Optional<Coupon> optionalCoupon = couponRepository.findById(id);
-        if (optionalCoupon.isEmpty()) return null;
-        return couponRepository.findById(id).get();
+       return  couponsLogic.getById(id);
     }
 
     @PostMapping
@@ -42,24 +39,24 @@ public class CouponsController {
         if (coupon.getCompany() == null) {
             throw new RuntimeException("please provide company");
         }
-        return couponRepository.save(coupon);
+        return couponsLogic.save(coupon);
     }
 
     @PutMapping
     public Coupon updateCoupon(@RequestBody Coupon coupon) {
-        return couponRepository.save(coupon);
+        return couponsLogic.save(coupon);
     }
 
     @DeleteMapping("/{couponId}")
     public void deleteCoupon(@PathVariable("couponId") long id) {
-        couponRepository.deleteById(id);
+        couponsLogic.deleteById(id);
     }
 
     @GetMapping("/company/{companyId}")
     public List<CouponsDto> getCouponsByCompanyId(@PathVariable long companyId) {
-        List<CouponsDto> coupons = couponRepository.findCouponsDtoByCompanyId(companyId);
+        List<CouponsDto> coupons = couponsLogic.findCouponsDtoByCompanyId(companyId);
         for (CouponsDto coupon: coupons){
-            Integer numberOfPurchases= purchaseRepository.findPurchaseCountByCouponId(coupon.getCouponId());
+            Integer numberOfPurchases= purchasesLogic.findPurchaseCountByCouponId(coupon.getCouponId());
             coupon.setAmountOfPurchases(numberOfPurchases);
         }
         return coupons;

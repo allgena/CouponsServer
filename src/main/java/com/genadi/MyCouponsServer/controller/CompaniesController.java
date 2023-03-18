@@ -1,45 +1,40 @@
 package com.genadi.MyCouponsServer.controller;
 
 import com.genadi.MyCouponsServer.bean.Company;
-import com.genadi.MyCouponsServer.dal.ICompanyRepository;
 import com.genadi.MyCouponsServer.dto.CompanyDto;
 import com.genadi.MyCouponsServer.logic.CompaniesLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/companies")
 public class CompaniesController {
-    private ICompanyRepository companyRepository;
     private CompaniesLogic companiesLogic;
 
     @Autowired
-    public CompaniesController(ICompanyRepository companyRepository, CompaniesLogic companiesLogic) {
-        this.companyRepository = companyRepository;
+    public CompaniesController(CompaniesLogic companiesLogic) {
         this.companiesLogic = companiesLogic;
     }
 
     @PostMapping
     public Company createCompany(@RequestBody Company company) {
-        return companyRepository.save(company);
+        return companiesLogic.save(company);
     }
 
     @PutMapping
     public Company updateCompany( @RequestBody Company company) {
-        if (!companyRepository.findById(company.getId()).isPresent()) throw new RuntimeException("company not found");
-        return companyRepository.save(company);
+        if (companiesLogic.getById(company.getId()) == null ) throw new RuntimeException("company not found");
+        return companiesLogic.save(company);
     }
 
     @GetMapping("/{companyId}")
     public Company getCompany(@PathVariable("companyId") long id) {
-        return companyRepository.findById(id).get();
+        return companiesLogic.getById(id);
     }
 
     @GetMapping
     public Iterable<Company> getAllCompanies() {
-        return companyRepository.findAll();
+        return companiesLogic.findAll();
     }
 
     @DeleteMapping("/{companyId}")
