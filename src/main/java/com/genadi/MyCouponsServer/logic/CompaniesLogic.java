@@ -45,6 +45,10 @@ public class CompaniesLogic {
 
     public CompanyDto findCompanyById(long id) {
         CompanyDto company = companyRepository.findCompanyById(id);
+        List<CouponDto> companyCoupons = couponsLogic.findCouponsDtoByCompanyId(company.getCompanyId());
+        company.setCoupons(companyCoupons);
+        Integer purchasesCount = purchaseRepository.countCompanyPurchases(company.getCompanyId());
+        company.setNumberOfPurchases(purchasesCount);
         return company;
     }
 
@@ -87,7 +91,7 @@ public class CompaniesLogic {
         return companyRepository.save(company);
     }
 
-    public List<CompanyDto> findAll() {
+    public List<CompanyDto> findAllCompanies() {
         List<CompanyDto> allCompanies = companyRepository.findAllCompanies();
         for (CompanyDto company: allCompanies){
             List<CouponDto> companyCoupons = couponsLogic.findCouponsDtoByCompanyId(company.getCompanyId());
@@ -96,5 +100,10 @@ public class CompaniesLogic {
             company.setNumberOfPurchases(purchasesCount);
         }
         return allCompanies;
+    }
+
+    public Iterable<Company> findAll()
+    {
+        return companyRepository.findAll();
     }
 }
