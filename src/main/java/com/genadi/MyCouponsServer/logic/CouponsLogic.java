@@ -14,9 +14,12 @@ import java.util.Optional;
 @Service
 public class CouponsLogic {
     private ICouponRepository couponRepository;
+    private PurchasesLogic purchasesLogic;
+
     @Autowired
-    public CouponsLogic(ICouponRepository couponRepository){
+    public CouponsLogic(ICouponRepository couponRepository, PurchasesLogic purchasesLogic){
         this.couponRepository=couponRepository;
+        this.purchasesLogic = purchasesLogic;
     }
 
 
@@ -42,6 +45,19 @@ public class CouponsLogic {
     }
 
     public List<CouponDto> findCouponsDtoByCompanyId(long companyId) {
-        return couponRepository.findCouponsDtoByCompanyId(companyId);
+        List<CouponDto> companyCoupons = couponRepository.findCouponsDtoByCompanyId(companyId);
+        for (CouponDto coupon: companyCoupons){
+            coupon.setAmountOfPurchases(purchasesLogic.findPurchaseCountByCouponId(coupon.getCouponId()));
+        }
+
+        return companyCoupons;
+    }
+
+    public List<Coupon> findByCompanyId(long companyId) {
+        return couponRepository.findByCompanyId(companyId);
+    }
+
+    public void deleteByCompanyId(long companyId) {
+        couponRepository.deleteByCompanyId(companyId);
     }
 }

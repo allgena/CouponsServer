@@ -19,7 +19,7 @@ public class PurchasesLogic {
 
 
     public Integer findPurchaseCountByCouponId(long couponId) {
-        return purchaseRepository.countByCouponId(couponId);
+        return purchaseRepository.countCouponPurchases(couponId);
     }
 
     public Purchase save(Purchase purchase) {

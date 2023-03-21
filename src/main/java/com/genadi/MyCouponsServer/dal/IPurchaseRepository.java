@@ -15,5 +15,6 @@ public interface IPurchaseRepository extends CrudRepository<Purchase,Long> {
     @Query(value = "select sum(amount_of_purchased) from purchases p join coupons c on c.id = p.coupon_id where c.company_id=:companyId", nativeQuery = true)
     Integer countCompanyPurchases(long companyId);
 
-    Integer countByCouponId(long couponId);
+    @Query(value = "select sum(amount_of_purchased) from purchases p join coupons c on c.id = p.coupon_id where c.id=:couponId", nativeQuery = true)
+    Integer countCouponPurchases(long couponId);
 }

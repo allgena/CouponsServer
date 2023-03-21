@@ -11,7 +11,7 @@ public class CouponDto {
     private Date startDate;
     private Date endDate;
 
-    private int amountOfPurchases;
+    private Integer amountOfPurchases;
 
     public CouponDto(long couponId, String couponName, String companyName, float price, Date startDate, Date endDate, int amountOfPurchases) {
         this.couponId = couponId;
@@ -71,11 +71,11 @@ public class CouponDto {
         this.endDate = endDate;
     }
 
-    public int getAmountOfPurchases() {
+    public Integer getAmountOfPurchases() {
         return amountOfPurchases;
     }
 
-    public void setAmountOfPurchases(int amountOfPurchases) {
+    public void setAmountOfPurchases(Integer amountOfPurchases) {
         this.amountOfPurchases = amountOfPurchases;
     }
 
