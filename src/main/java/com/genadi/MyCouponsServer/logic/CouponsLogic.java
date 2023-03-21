@@ -3,7 +3,7 @@ package com.genadi.MyCouponsServer.logic;
 
 import com.genadi.MyCouponsServer.bean.Coupon;
 import com.genadi.MyCouponsServer.dal.ICouponRepository;
-import com.genadi.MyCouponsServer.dto.CouponsDto;
+import com.genadi.MyCouponsServer.dto.CouponDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +19,6 @@ public class CouponsLogic {
         this.couponRepository=couponRepository;
     }
 
-    public List<CouponsDto> getCouponsByCompanyId(long companyId){
-        return couponRepository.findCouponsDtoByCompanyId(companyId);
-    }
 
     public Iterable<Coupon> findAll() {
         return couponRepository.findAll();
@@ -44,7 +41,7 @@ public class CouponsLogic {
         couponRepository.deleteById(id);
     }
 
-    public List<CouponsDto> findCouponsDtoByCompanyId(long companyId) {
+    public List<CouponDto> findCouponsDtoByCompanyId(long companyId) {
         return couponRepository.findCouponsDtoByCompanyId(companyId);
     }
 }

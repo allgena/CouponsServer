@@ -3,6 +3,7 @@ package com.genadi.MyCouponsServer.logic;
 import com.genadi.MyCouponsServer.bean.*;
 import com.genadi.MyCouponsServer.dal.*;
 import com.genadi.MyCouponsServer.dto.CompanyDto;
+import com.genadi.MyCouponsServer.dto.CouponDto;
 import com.genadi.MyCouponsServer.enams.CouponCategory;
 import com.genadi.MyCouponsServer.enams.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class CompaniesLogic {
         return result;
     }
 
-    public CompanyDto getCompanyCoupons(long id) {
+    public CompanyDto findCompanyById(long id) {
         CompanyDto company = companyRepository.findCompanyById(id);
         return company;
     }
@@ -86,7 +87,14 @@ public class CompaniesLogic {
         return companyRepository.save(company);
     }
 
-    public Iterable<Company> findAll() {
-                return companyRepository.findAll();
+    public List<CompanyDto> findAll() {
+        List<CompanyDto> allCompanies = companyRepository.findAllCompanies();
+        for (CompanyDto company: allCompanies){
+            List<CouponDto> companyCoupons = couponRepository.findCouponsDtoByCompanyId(company.getCompanyId());
+            company.setCoupons(companyCoupons);
+            Integer purchasesCount = purchaseRepository.countCompanyPurchases(company.getCompanyId());
+            company.setNumberPurchases(purchasesCount);
+        }
+        return allCompanies;
     }
 }

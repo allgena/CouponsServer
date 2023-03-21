@@ -6,6 +6,8 @@ import com.genadi.MyCouponsServer.logic.CompaniesLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/companies")
 public class CompaniesController {
@@ -27,13 +29,9 @@ public class CompaniesController {
         return companiesLogic.save(company);
     }
 
-    @GetMapping("/{companyId}")
-    public Company getCompany(@PathVariable("companyId") long id) {
-        return companiesLogic.getById(id);
-    }
 
     @GetMapping
-    public Iterable<Company> getAllCompanies() {
+    public List<CompanyDto> getAllCompanies() {
         return companiesLogic.findAll();
     }
 
@@ -42,9 +40,9 @@ public class CompaniesController {
         companiesLogic.deleteCompanyById(id);
     }
 
-    @GetMapping("coupons/{companyId}")
+    @GetMapping("/{companyId}")
     public CompanyDto getCompanyCoupons(@PathVariable("companyId") long id) {
-        return companiesLogic.getCompanyCoupons(id);
+        return companiesLogic.findCompanyById(id);
     }
 
     @PostMapping("/createData")

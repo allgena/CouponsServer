@@ -1,7 +1,7 @@
 package com.genadi.MyCouponsServer.controller;
 
 import com.genadi.MyCouponsServer.bean.Coupon;
-import com.genadi.MyCouponsServer.dto.CouponsDto;
+import com.genadi.MyCouponsServer.dto.CouponDto;
 import com.genadi.MyCouponsServer.logic.CompaniesLogic;
 import com.genadi.MyCouponsServer.logic.CouponsLogic;
 import com.genadi.MyCouponsServer.logic.PurchasesLogic;
@@ -53,9 +53,9 @@ public class CouponsController {
     }
 
     @GetMapping("/company/{companyId}")
-    public List<CouponsDto> getCouponsByCompanyId(@PathVariable long companyId) {
-        List<CouponsDto> coupons = couponsLogic.findCouponsDtoByCompanyId(companyId);
-        for (CouponsDto coupon: coupons){
+    public List<CouponDto> getCouponsByCompanyId(@PathVariable long companyId) {
+        List<CouponDto> coupons = couponsLogic.findCouponsDtoByCompanyId(companyId);
+        for (CouponDto coupon: coupons){
             Integer numberOfPurchases= purchasesLogic.findPurchaseCountByCouponId(coupon.getCouponId());
             coupon.setAmountOfPurchases(numberOfPurchases);
         }

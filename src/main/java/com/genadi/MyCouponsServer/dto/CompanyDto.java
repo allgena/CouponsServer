@@ -1,22 +1,20 @@
 package com.genadi.MyCouponsServer.dto;
 
-import com.genadi.MyCouponsServer.bean.Coupon;
-
 import java.util.List;
 
 public class CompanyDto {
 
     private long companyId;
     private String companyName;
-    private List<Coupon> coupons;
-    private int numberPurchases;
+    List<CouponDto> coupons;
+    private Integer numberPurchases;
 
     public CompanyDto(long companyId, String companyName){
         this.companyId = companyId;
         this.companyName = companyName;
     }
 
-    public CompanyDto(long companyId, String companyName, List<Coupon> coupons, int numberPurchases) {
+    public CompanyDto(long companyId, String companyName, List<CouponDto> coupons, int numberPurchases) {
         this.companyId = companyId;
         this.companyName = companyName;
         this.coupons = coupons;
@@ -39,19 +37,19 @@ public class CompanyDto {
         this.companyName = companyName;
     }
 
-    public List<Coupon> getCoupons() {
+    public List<CouponDto> getCoupons() {
         return coupons;
     }
 
-    public void setCoupons(List<Coupon> coupons) {
+    public void setCoupons(List<CouponDto> coupons) {
         this.coupons = coupons;
     }
 
-    public int getNumberPurchases() {
+    public Integer getNumberPurchases() {
         return numberPurchases;
     }
 
-    public void setNumberPurchases(int numberPurchases) {
+    public void setNumberPurchases(Integer numberPurchases) {
         this.numberPurchases = numberPurchases;
     }
 
