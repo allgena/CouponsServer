@@ -7,18 +7,18 @@ public class CompanyDto {
     private long companyId;
     private String companyName;
     List<CouponDto> coupons;
-    private Integer numberPurchases;
+    private Integer numberOfPurchases;
 
     public CompanyDto(long companyId, String companyName){
         this.companyId = companyId;
         this.companyName = companyName;
     }
 
-    public CompanyDto(long companyId, String companyName, List<CouponDto> coupons, int numberPurchases) {
+    public CompanyDto(long companyId, String companyName, List<CouponDto> coupons, int numberOfPurchases) {
         this.companyId = companyId;
         this.companyName = companyName;
         this.coupons = coupons;
-        this.numberPurchases = numberPurchases;
+        this.numberOfPurchases = numberOfPurchases;
     }
 
     public long getCompanyId() {
@@ -45,12 +45,12 @@ public class CompanyDto {
         this.coupons = coupons;
     }
 
-    public Integer getNumberPurchases() {
-        return numberPurchases;
+    public Integer getNumberOfPurchases() {
+        return numberOfPurchases;
     }
 
-    public void setNumberPurchases(Integer numberPurchases) {
-        this.numberPurchases = numberPurchases;
+    public void setNumberOfPurchases(Integer numberOfPurchases) {
+        this.numberOfPurchases = numberOfPurchases;
     }
 
     @Override

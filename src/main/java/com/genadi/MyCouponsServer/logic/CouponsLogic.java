@@ -47,7 +47,7 @@ public class CouponsLogic {
     public List<CouponDto> findCouponsDtoByCompanyId(long companyId) {
         List<CouponDto> companyCoupons = couponRepository.findCouponsDtoByCompanyId(companyId);
         for (CouponDto coupon: companyCoupons){
-            coupon.setAmountOfPurchases(purchasesLogic.findPurchaseCountByCouponId(coupon.getCouponId()));
+            coupon.setNumberOfPurchases(purchasesLogic.findPurchaseCountByCouponId(coupon.getCouponId()));
         }
 
         return companyCoupons;

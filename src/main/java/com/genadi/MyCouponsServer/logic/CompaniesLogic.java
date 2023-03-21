@@ -93,7 +93,7 @@ public class CompaniesLogic {
             List<CouponDto> companyCoupons = couponsLogic.findCouponsDtoByCompanyId(company.getCompanyId());
             company.setCoupons(companyCoupons);
             Integer purchasesCount = purchaseRepository.countCompanyPurchases(company.getCompanyId());
-            company.setNumberPurchases(purchasesCount);
+            company.setNumberOfPurchases(purchasesCount);
         }
         return allCompanies;
     }

@@ -57,7 +57,7 @@ public class CouponsController {
         List<CouponDto> coupons = couponsLogic.findCouponsDtoByCompanyId(companyId);
         for (CouponDto coupon: coupons){
             Integer numberOfPurchases= purchasesLogic.findPurchaseCountByCouponId(coupon.getCouponId());
-            coupon.setAmountOfPurchases(numberOfPurchases);
+            coupon.setNumberOfPurchases(numberOfPurchases);
         }
         return coupons;
     }

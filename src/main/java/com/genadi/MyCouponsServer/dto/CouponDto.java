@@ -11,7 +11,7 @@ public class CouponDto {
     private Date startDate;
     private Date endDate;
 
-    private Integer amountOfPurchases;
+    private Integer numberOfPurchases;
 
     public CouponDto(long couponId, String couponName, String companyName, float price, Date startDate, Date endDate, int amountOfPurchases) {
         this.couponId = couponId;
@@ -20,7 +20,7 @@ public class CouponDto {
         this.price = price;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.amountOfPurchases=amountOfPurchases;
+        this.numberOfPurchases =amountOfPurchases;
     }
 
     public long getCouponId() {
@@ -71,12 +71,12 @@ public class CouponDto {
         this.endDate = endDate;
     }
 
-    public Integer getAmountOfPurchases() {
-        return amountOfPurchases;
+    public Integer getNumberOfPurchases() {
+        return numberOfPurchases;
     }
 
-    public void setAmountOfPurchases(Integer amountOfPurchases) {
-        this.amountOfPurchases = amountOfPurchases;
+    public void setNumberOfPurchases(Integer numberOfPurchases) {
+        this.numberOfPurchases = numberOfPurchases;
     }
 
     @Override
@@ -88,7 +88,7 @@ public class CouponDto {
                 ", price=" + price +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", amountOfPurchases=" + amountOfPurchases +
+                ", amountOfPurchases=" + numberOfPurchases +
                 '}';
     }
 }
