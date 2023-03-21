@@ -32,7 +32,7 @@ public class CompaniesController {
 
     @GetMapping
     public List<CompanyDto> getAllCompanies() {
-        return companiesLogic.findAll();
+        return companiesLogic.findAllCompanies();
     }
 
     @DeleteMapping("/{companyId}")

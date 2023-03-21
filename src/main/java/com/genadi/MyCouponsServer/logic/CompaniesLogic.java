@@ -102,8 +102,4 @@ public class CompaniesLogic {
         return allCompanies;
     }
 
-    public Iterable<Company> findAll()
-    {
-        return companyRepository.findAll();
-    }
 }
