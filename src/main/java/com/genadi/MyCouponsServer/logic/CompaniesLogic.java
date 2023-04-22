@@ -1,7 +1,10 @@
 package com.genadi.MyCouponsServer.logic;
 
 import com.genadi.MyCouponsServer.bean.*;
-import com.genadi.MyCouponsServer.dal.*;
+import com.genadi.MyCouponsServer.dal.ICompanyRepository;
+import com.genadi.MyCouponsServer.dal.ICustomerRepository;
+import com.genadi.MyCouponsServer.dal.IPurchaseRepository;
+import com.genadi.MyCouponsServer.dal.IUserRepository;
 import com.genadi.MyCouponsServer.dto.CompanyDto;
 import com.genadi.MyCouponsServer.dto.CouponDto;
 import com.genadi.MyCouponsServer.enams.CouponCategory;

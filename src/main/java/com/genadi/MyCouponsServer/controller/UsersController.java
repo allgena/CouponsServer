@@ -1,5 +1,6 @@
 package com.genadi.MyCouponsServer.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.genadi.MyCouponsServer.bean.User;
 import com.genadi.MyCouponsServer.dto.LoginDetailsDTO;
 import com.genadi.MyCouponsServer.logic.UsersLogic;
@@ -44,7 +45,9 @@ public class UsersController {
     }
 
     @PostMapping("login")
-    public String userLogin(@RequestBody LoginDetailsDTO userDetails){
-        return usersLogic.login(userDetails);
+    public String userLogin(@RequestBody LoginDetailsDTO userDetails) throws JsonProcessingException {
+        String token = usersLogic.login(userDetails);
+        System.out.printf("Token:" + token);
+        return token;
     }
 }

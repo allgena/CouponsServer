@@ -3,7 +3,6 @@ package com.genadi.MyCouponsServer.controller;
 import com.genadi.MyCouponsServer.bean.Company;
 import com.genadi.MyCouponsServer.dto.CompanyDto;
 import com.genadi.MyCouponsServer.logic.CompaniesLogic;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
 public class CompaniesController {
     private CompaniesLogic companiesLogic;
 
-    @Autowired
+//    @Autowired
     public CompaniesController(CompaniesLogic companiesLogic) {
         this.companiesLogic = companiesLogic;
     }

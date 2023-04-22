@@ -5,8 +5,11 @@ import com.genadi.MyCouponsServer.bean.Coupon;
 import com.genadi.MyCouponsServer.dal.ICouponRepository;
 import com.genadi.MyCouponsServer.dto.CouponDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,5 +62,15 @@ public class CouponsLogic {
 
     public void deleteByCompanyId(long companyId) {
         couponRepository.deleteByCompanyId(companyId);
+    }
+
+    public Iterable<CouponDto> findAllByPage(int pageNumber, int amountOfItemsPerPage) {
+        Pageable pageable = PageRequest.of(pageNumber-1, amountOfItemsPerPage);
+        List<Coupon> coupons = couponRepository.findAll(pageable).getContent();
+        List<CouponDto> result = new ArrayList<>();
+        coupons.stream().forEach(c->{
+            result.add(new CouponDto(c.getId(), c.getCouponName(), c.getCompany().getCompanyName(), c.getCategory(), c.getDescription(), c.getPrice(), c.getStartDate(), c.getEndDate(), 0));
+        });
+        return result;
     }
 }

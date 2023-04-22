@@ -2,6 +2,7 @@ package com.genadi.MyCouponsServer.bean;
 
 
 import com.genadi.MyCouponsServer.enams.CouponCategory;
+
 import javax.persistence.*;
 import java.sql.Date;
 

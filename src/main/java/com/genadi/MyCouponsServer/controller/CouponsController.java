@@ -29,6 +29,11 @@ public class CouponsController {
         return couponsLogic.findAll();
     }
 
+    @GetMapping("byPage")
+    public Iterable<CouponDto> getCouponsByPage(@RequestParam int pageNumber, @RequestParam int amountOfItemsPerPage) {
+        return couponsLogic.findAllByPage(pageNumber, amountOfItemsPerPage);
+    }
+
     @GetMapping("/{couponId}")
     public Coupon getCoupon(@PathVariable("couponId") long id) {
        return  couponsLogic.getById(id);

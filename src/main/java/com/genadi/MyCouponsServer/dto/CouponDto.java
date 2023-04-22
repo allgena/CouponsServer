@@ -1,5 +1,7 @@
 package com.genadi.MyCouponsServer.dto;
 
+import com.genadi.MyCouponsServer.enams.CouponCategory;
+
 import java.util.Date;
 
 public class CouponDto {
@@ -7,13 +9,15 @@ public class CouponDto {
     private long couponId;
     private String couponName;
     private String companyName;
+    private CouponCategory category;
+    private String description;
     private float price;
     private Date startDate;
     private Date endDate;
 
     private Integer numberOfPurchases;
 
-    public CouponDto(long couponId, String couponName, String companyName, float price, Date startDate, Date endDate, int amountOfPurchases) {
+    public CouponDto(long couponId, String couponName, String companyName,  CouponCategory category, String description, float price, Date startDate, Date endDate, int amountOfPurchases) {
         this.couponId = couponId;
         this.couponName = couponName;
         this.companyName = companyName;
@@ -21,6 +25,8 @@ public class CouponDto {
         this.startDate = startDate;
         this.endDate = endDate;
         this.numberOfPurchases =amountOfPurchases;
+        this.category = category;
+        this.description = description;
     }
 
     public long getCouponId() {
@@ -90,5 +96,21 @@ public class CouponDto {
                 ", endDate=" + endDate +
                 ", amountOfPurchases=" + numberOfPurchases +
                 '}';
+    }
+
+    public CouponCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(CouponCategory category) {
+        this.category = category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
