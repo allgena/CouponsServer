@@ -10,11 +10,15 @@ import com.genadi.MyCouponsServer.dto.CouponDto;
 import com.genadi.MyCouponsServer.enams.CouponCategory;
 import com.genadi.MyCouponsServer.enams.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -105,4 +109,18 @@ public class CompaniesLogic {
         return allCompanies;
     }
 
+    public Iterable<CompanyDto> findAllByPage(int pageNumber, int amountOfItemsPerPage) {
+        Pageable pageable = PageRequest.of(pageNumber-1, amountOfItemsPerPage);
+        List<CompanyDto> result = new ArrayList<>();
+        Page<Company> companies = companyRepository.findAll(pageable);
+        for (Company company: companies){
+            CompanyDto companyDto = new CompanyDto(company);
+            List<CouponDto> companyCoupons = couponsLogic.findCouponsDtoByCompanyId(company.getId());
+            companyDto.setCoupons(companyCoupons);
+            Integer purchasesCount = purchaseRepository.countCompanyPurchases(company.getId());
+            companyDto.setNumberOfPurchases(purchasesCount);
+            result.add(companyDto);
+        }
+        return result;
+    }
 }

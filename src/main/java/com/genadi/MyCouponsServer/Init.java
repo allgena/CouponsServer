@@ -1,22 +1,16 @@
 package com.genadi.MyCouponsServer;
 
-import com.genadi.MyCouponsServer.bean.Company;
-import com.genadi.MyCouponsServer.bean.Coupon;
 import com.genadi.MyCouponsServer.bean.Customer;
 import com.genadi.MyCouponsServer.bean.User;
 import com.genadi.MyCouponsServer.dal.ICompanyRepository;
 import com.genadi.MyCouponsServer.dal.ICouponRepository;
 import com.genadi.MyCouponsServer.dal.ICustomerRepository;
-import com.genadi.MyCouponsServer.enams.CouponCategory;
 import com.genadi.MyCouponsServer.enams.UserType;
 import com.genadi.MyCouponsServer.logic.CompaniesLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.sql.Date;
-import java.time.LocalDate;
 
 @Component
 public class Init implements CommandLineRunner {

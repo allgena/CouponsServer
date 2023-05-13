@@ -1,6 +1,7 @@
 package com.genadi.MyCouponsServer.controller;
 
 import com.genadi.MyCouponsServer.bean.Purchase;
+import com.genadi.MyCouponsServer.dto.PurchaseDto;
 import com.genadi.MyCouponsServer.logic.PurchasesLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,12 @@ public class PurchasesController {
     public Iterable<Purchase> getAllPurchases() {
         return purchasesLogic.findAll();
     }
+
+    @GetMapping("/byPage")
+    public Iterable<PurchaseDto> getAllByPage(@RequestParam int pageNumber, @RequestParam int amountOfItemsPerPage)  {
+        return purchasesLogic.findAllByPage(pageNumber, amountOfItemsPerPage);
+    }
+
 
     @DeleteMapping("{purchaseId}")
     public void deletePurchase(@PathVariable("purchaseId") long id) {

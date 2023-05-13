@@ -34,6 +34,10 @@ public class CompaniesController {
         return companiesLogic.findAllCompanies();
     }
 
+    @GetMapping("/byPage")
+    public Iterable<CompanyDto> getAllByPage(@RequestParam int pageNumber, @RequestParam int amountOfItemsPerPage)  {
+        return companiesLogic.findAllByPage(pageNumber, amountOfItemsPerPage);
+    }
     @DeleteMapping("/{companyId}")
     public void deleteCompany(@PathVariable("companyId") long id) {
         companiesLogic.deleteCompanyById(id);

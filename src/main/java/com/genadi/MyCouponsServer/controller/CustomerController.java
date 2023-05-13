@@ -1,7 +1,7 @@
 package com.genadi.MyCouponsServer.controller;
 
 import com.genadi.MyCouponsServer.bean.Customer;
-import com.genadi.MyCouponsServer.dal.ICustomerRepository;
+import com.genadi.MyCouponsServer.dto.CustomerDto;
 import com.genadi.MyCouponsServer.logic.CustomersLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +33,11 @@ public class CustomerController {
     @GetMapping()
     public Iterable<Customer> getCustomer() throws ServerException {
         return customersLogic.findAll();
+    }
+
+    @GetMapping("/byPage")
+    public Iterable<CustomerDto> getAllByPage(@RequestParam int pageNumber, @RequestParam int amountOfItemsPerPage)  {
+        return customersLogic.findAllByPage(pageNumber, amountOfItemsPerPage);
     }
 
     @PutMapping

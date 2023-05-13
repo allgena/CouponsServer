@@ -2,9 +2,15 @@ package com.genadi.MyCouponsServer.logic;
 
 import com.genadi.MyCouponsServer.bean.Purchase;
 import com.genadi.MyCouponsServer.dal.IPurchaseRepository;
+import com.genadi.MyCouponsServer.dto.PurchaseDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -39,6 +45,18 @@ public class PurchasesLogic {
         Purchase result = null;
         if (optionalPurchase.isPresent())
             result = optionalPurchase.get();
+        return result;
+    }
+
+    public Iterable<PurchaseDto> findAllByPage(int pageNumber, int amountOfItemsPerPage) {
+        Pageable pageable = PageRequest.of(pageNumber-1, amountOfItemsPerPage);
+        List<PurchaseDto> result = new ArrayList<>();
+        Page<Purchase> companies = purchaseRepository.findAll(pageable);
+        for (Purchase purchase: companies){
+            PurchaseDto purchaseDto = new PurchaseDto(purchase);
+
+            result.add(purchaseDto);
+        }
         return result;
     }
 }

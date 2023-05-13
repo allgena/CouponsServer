@@ -1,17 +1,25 @@
 package com.genadi.MyCouponsServer.dto;
 
+import com.genadi.MyCouponsServer.bean.Company;
+
 import java.util.List;
 
 public class CompanyDto {
 
     private long companyId;
     private String companyName;
+
+    private String phoneNumber;
+    private String address;
+
     List<CouponDto> coupons;
     private Integer numberOfPurchases;
 
-    public CompanyDto(long companyId, String companyName){
+    public CompanyDto(long companyId, String companyName, String phoneNumber, String address){
         this.companyId = companyId;
         this.companyName = companyName;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
     }
 
     public CompanyDto(long companyId, String companyName, List<CouponDto> coupons, int numberOfPurchases) {
@@ -19,6 +27,13 @@ public class CompanyDto {
         this.companyName = companyName;
         this.coupons = coupons;
         this.numberOfPurchases = numberOfPurchases;
+    }
+
+    public CompanyDto(Company company) {
+        this.companyId = company.getId();
+        this.companyName = company.getCompanyName();
+        this.phoneNumber = company.getPhoneNumber();
+        this.address = company.getAddress();
     }
 
     public long getCompanyId() {
@@ -60,5 +75,21 @@ public class CompanyDto {
                 ", companyName='" + companyName + '\'' +
 
                 '}';
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
