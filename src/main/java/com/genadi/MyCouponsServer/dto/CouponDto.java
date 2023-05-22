@@ -17,6 +17,8 @@ public class CouponDto {
 
     private Integer numberOfPurchases;
 
+    private String imageURL;
+
     public CouponDto(long couponId, String couponName, String companyName,  CouponCategory category, String description, float price, Date startDate, Date endDate, int amountOfPurchases) {
         this.couponId = couponId;
         this.couponName = couponName;
@@ -26,6 +28,7 @@ public class CouponDto {
         this.endDate = endDate;
         this.numberOfPurchases =amountOfPurchases;
         this.category = category;
+        this.imageURL= category.getImage();
         this.description = description;
     }
 
@@ -112,5 +115,13 @@ public class CouponDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }

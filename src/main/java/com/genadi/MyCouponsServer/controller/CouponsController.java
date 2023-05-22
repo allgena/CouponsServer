@@ -30,7 +30,7 @@ public class CouponsController {
     }
 
     @GetMapping("byPage")
-    public Iterable<CouponDto> getCouponsByPage(@RequestParam int pageNumber, @RequestParam(defaultValue = "5") int amountOfItemsPerPage) {
+    public Iterable<CouponDto> getCouponsByPage(@RequestParam int pageNumber, @RequestParam(defaultValue = "10") int amountOfItemsPerPage) {
         return couponsLogic.findAllByPage(pageNumber, amountOfItemsPerPage);
     }
 
