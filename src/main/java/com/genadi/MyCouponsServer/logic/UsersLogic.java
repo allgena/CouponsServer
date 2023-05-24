@@ -77,7 +77,7 @@ public class UsersLogic {
             companyId = user.getCompany().getId();
         SuccessfulLoginData successfulLoginData =  new SuccessfulLoginData(user.getId(), user.getUserName(), companyId, user.getUserType());
 
-        return jwtUtils.createJwtToken(successfulLoginData);
+        return jwtUtils.createJWT(successfulLoginData);
     }
 }
 
