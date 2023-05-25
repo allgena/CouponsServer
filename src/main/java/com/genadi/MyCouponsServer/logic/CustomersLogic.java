@@ -1,9 +1,12 @@
 package com.genadi.MyCouponsServer.logic;
 
 import com.genadi.MyCouponsServer.bean.Customer;
+import com.genadi.MyCouponsServer.bean.User;
 import com.genadi.MyCouponsServer.dal.ICustomerRepository;
 import com.genadi.MyCouponsServer.dal.IPurchaseRepository;
 import com.genadi.MyCouponsServer.dto.CustomerDto;
+import com.genadi.MyCouponsServer.dto.RegisterDto;
+import com.genadi.MyCouponsServer.enams.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -56,5 +59,22 @@ public class CustomersLogic {
             result.add(customerDto);
         }
         return result;
+    }
+
+    public long register(RegisterDto registerDto) {
+        Customer customer = new Customer();
+        customer.setName(registerDto.getCustomerName());
+        customer.setPhoneNumber(registerDto.getPhoneNumber());
+        customer.setAddress(registerDto.getAddress());
+
+        User user = new User();
+        user.setUserType(UserType.CUSTOMER);
+        user.setUserName(registerDto.getCustomerName());
+        user.setPassword(registerDto.getPass());
+        user.setPhoneNumber(registerDto.getPhoneNumber());
+        customer.setUser(user);
+
+        customer = save(customer);
+        return customer.getId();
     }
 }

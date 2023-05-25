@@ -2,6 +2,7 @@ package com.genadi.MyCouponsServer.controller;
 
 import com.genadi.MyCouponsServer.bean.Customer;
 import com.genadi.MyCouponsServer.dto.CustomerDto;
+import com.genadi.MyCouponsServer.dto.RegisterDto;
 import com.genadi.MyCouponsServer.logic.CustomersLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,12 @@ public class CustomerController {
     public long createCustomer(@RequestBody Customer customer) throws ServerException {
         customer = customersLogic.save(customer);
         return customer.getId();
+    }
+
+    @PostMapping("register")
+    public long register(@RequestBody RegisterDto registerDto) throws ServerException {
+        return customersLogic.register(registerDto);
+
     }
 
     @GetMapping("/{customerId}")
