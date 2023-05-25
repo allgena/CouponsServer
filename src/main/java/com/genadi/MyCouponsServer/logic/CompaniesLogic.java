@@ -123,4 +123,8 @@ public class CompaniesLogic {
         }
         return result;
     }
+
+    public Company findCompanyByName(String companyName) {
+        return companyRepository.findByCompanyName(companyName);
+    }
 }

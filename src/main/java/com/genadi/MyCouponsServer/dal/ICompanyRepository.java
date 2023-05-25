@@ -17,4 +17,6 @@ public interface ICompanyRepository extends JpaRepository<Company,Long> {
 
     @Query(value = "select new com.genadi.MyCouponsServer.dto.CompanyDto(c.id, c.companyName, c.phoneNumber,c.address) from Company c")
     List<CompanyDto> findAllCompanies();
+
+    Company findByCompanyName(String companyName);
 }

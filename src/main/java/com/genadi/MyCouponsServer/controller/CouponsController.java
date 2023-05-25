@@ -1,5 +1,6 @@
 package com.genadi.MyCouponsServer.controller;
 
+import com.genadi.MyCouponsServer.bean.Company;
 import com.genadi.MyCouponsServer.bean.Coupon;
 import com.genadi.MyCouponsServer.dto.CouponDto;
 import com.genadi.MyCouponsServer.logic.CompaniesLogic;
@@ -8,6 +9,7 @@ import com.genadi.MyCouponsServer.logic.PurchasesLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -40,16 +42,26 @@ public class CouponsController {
     }
 
     @PostMapping
-    public Coupon createCoupon(@RequestBody Coupon coupon) {
-        if (coupon.getCompany() == null) {
+    public void createCoupon(@RequestBody CouponDto couponDto) {
+        Company company = companiesLogic.findCompanyByName(couponDto.getCompanyName());
+        if (company == null) {
             throw new RuntimeException("please provide company");
         }
-        return couponsLogic.save(coupon);
+        Coupon coupon = new Coupon();
+        coupon.setId(couponDto.getCouponId());
+        coupon.setCouponName(couponDto.getCouponName());
+        coupon.setCategory(couponDto.getCategory());
+        coupon.setDescription(couponDto.getDescription());
+        coupon.setPrice(couponDto.getPrice());
+        coupon.setCompany(company);
+        coupon.setStartDate(new Date(couponDto.getStartDate().getTime()));
+        coupon.setEndDate(new Date(couponDto.getEndDate().getTime()));
+        couponsLogic.save(coupon);
     }
 
     @PutMapping
-    public Coupon updateCoupon(@RequestBody Coupon coupon) {
-        return couponsLogic.save(coupon);
+    public void updateCoupon(@RequestBody CouponDto coupon) {
+        createCoupon(coupon);
     }
 
     @DeleteMapping("/{couponId}")

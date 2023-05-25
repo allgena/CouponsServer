@@ -73,7 +73,7 @@ public class LoginFilter implements Filter {
 //            return true;
 //        }
 
-        return false;
+        return true;
     }
 
     @Override
