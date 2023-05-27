@@ -73,4 +73,8 @@ public class CouponsLogic {
         });
         return result;
     }
+
+    public Coupon findById(long couponId) {
+        return couponRepository.findById(couponId).get();
+    }
 }

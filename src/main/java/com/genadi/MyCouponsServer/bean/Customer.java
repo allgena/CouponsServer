@@ -3,7 +3,8 @@ package com.genadi.MyCouponsServer.bean;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Customers")
+@Table(name = "Customers",indexes = {@Index(name = "uniqueNameIndex", columnList = "name", unique = true)
+})
 public class Customer {
     @Id
     @GeneratedValue

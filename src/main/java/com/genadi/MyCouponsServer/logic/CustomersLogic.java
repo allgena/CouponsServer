@@ -77,4 +77,8 @@ public class CustomersLogic {
         customer = save(customer);
         return customer.getId();
     }
+
+    public Customer findByCustomerName(String customerName) {
+        return customerRepository.findByName(customerName);
+    }
 }

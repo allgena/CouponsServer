@@ -61,6 +61,9 @@ public class CompaniesLogic {
 
     @Transactional
     public void deleteCompanyById(long companyId){
+        if (!companyRepository.findById(companyId).isPresent())
+            return;
+
         List<Coupon> coupons = couponsLogic.findByCompanyId(companyId);
         System.out.printf("Number of coupons found " + coupons.size() );
         for (Coupon coupon: coupons){
@@ -69,6 +72,7 @@ public class CompaniesLogic {
         }
         couponsLogic.deleteByCompanyId(companyId);
         userRepository.deleteByCompanyId(companyId);
+
         companyRepository.deleteById(companyId);
     }
 
