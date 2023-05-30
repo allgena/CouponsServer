@@ -32,8 +32,11 @@ public class CouponsController {
     }
 
     @GetMapping("byPage")
-    public Iterable<CouponDto> getCouponsByPage(@RequestParam int pageNumber, @RequestParam(defaultValue = "10") int amountOfItemsPerPage) {
-        return couponsLogic.findAllByPage(pageNumber, amountOfItemsPerPage);
+    public Iterable<CouponDto> getCouponsByPage(@RequestParam int pageNumber, @RequestParam(defaultValue = "10") int amountOfItemsPerPage, @RequestParam(required = false) String category) {
+        if (category== null || category.equalsIgnoreCase("All"))
+            return couponsLogic.findAllByPage(pageNumber, amountOfItemsPerPage);
+        else
+            return  couponsLogic.findCouponsDtoByCategory(category, pageNumber,amountOfItemsPerPage);
     }
 
     @GetMapping("/{couponId}")
@@ -56,6 +59,7 @@ public class CouponsController {
         coupon.setCompany(company);
         coupon.setStartDate(new Date(couponDto.getStartDate().getTime()));
         coupon.setEndDate(new Date(couponDto.getEndDate().getTime()));
+        coupon.setImageURL(couponDto.getImageURL());
         couponsLogic.save(coupon);
     }
 

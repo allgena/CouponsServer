@@ -1,5 +1,6 @@
 package com.genadi.MyCouponsServer.dto;
 
+import com.genadi.MyCouponsServer.bean.Coupon;
 import com.genadi.MyCouponsServer.enams.CouponCategory;
 
 import java.util.Date;
@@ -30,6 +31,20 @@ public class CouponDto {
         this.category = category;
         this.imageURL= category.getImage();
         this.description = description;
+    }
+    public CouponDto(Coupon coupon){
+        this.couponId = coupon.getId();
+        this.couponName = coupon.getCouponName();
+        this.companyName = coupon.getCompany().getCompanyName();
+        this.price = coupon.getPrice();
+        this.startDate = coupon.getStartDate();
+        this.endDate = coupon.getEndDate();
+        this.category = coupon.getCategory();
+        if (coupon.getImageURL() == null || coupon.getImageURL().isEmpty())
+            this.imageURL= category.getImage();
+        else
+            this.imageURL = coupon.getImageURL();
+        this.description = coupon.getDescription();
     }
 
     public long getCouponId() {

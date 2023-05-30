@@ -29,6 +29,9 @@ public class Coupon {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    @Column(length = 1000)
+    private String imageURL;
+
     public Coupon() {
     }
 
@@ -125,5 +128,13 @@ public class Coupon {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }

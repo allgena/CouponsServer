@@ -2,8 +2,10 @@ package com.genadi.MyCouponsServer.logic;
 
 
 import com.genadi.MyCouponsServer.bean.Coupon;
+import com.genadi.MyCouponsServer.bean.Purchase;
 import com.genadi.MyCouponsServer.dal.ICouponRepository;
 import com.genadi.MyCouponsServer.dto.CouponDto;
+import com.genadi.MyCouponsServer.enams.CouponCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -44,6 +46,10 @@ public class CouponsLogic {
     }
 
     public void deleteById(long id) {
+        List<Purchase> purchases = purchasesLogic.findByCouponId(id);
+        for (Purchase purchase: purchases) {
+            purchasesLogic.deleteById(purchase.getId());
+        }
         couponRepository.deleteById(id);
     }
 
@@ -69,12 +75,25 @@ public class CouponsLogic {
         List<Coupon> coupons = couponRepository.findAll(pageable).getContent();
         List<CouponDto> result = new ArrayList<>();
         coupons.stream().forEach(c->{
-            result.add(new CouponDto(c.getId(), c.getCouponName(), c.getCompany().getCompanyName(), c.getCategory(), c.getDescription(), c.getPrice(), c.getStartDate(), c.getEndDate(), 0));
+            result.add(new CouponDto(c));
         });
         return result;
     }
 
     public Coupon findById(long couponId) {
         return couponRepository.findById(couponId).get();
+    }
+
+    public List<CouponDto> findCouponsDtoByCategory(String category, int pageNumber, int amountOfItemsPerPage){
+        CouponCategory categoryEnum = CouponCategory.valueOf(category.toUpperCase());
+        Pageable pageable = PageRequest.of(pageNumber-1, amountOfItemsPerPage);
+        List<Coupon> coupons = couponRepository.findByCategory(categoryEnum, pageable).getContent();
+        List<CouponDto> result = new ArrayList<>();
+        coupons.stream().forEach(c->{
+            result.add(new CouponDto(c));
+        });
+        return result;
+
+
     }
 }

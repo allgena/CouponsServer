@@ -59,4 +59,12 @@ public class PurchasesLogic {
         }
         return result;
     }
+
+    public List<Purchase> findByCouponId(long id) {
+            return purchaseRepository.findByCouponId(id);
+    }
+
+    public void deleteByCouponId(long id) {
+        purchaseRepository.deleteByCouponId(id);
+    }
 }
