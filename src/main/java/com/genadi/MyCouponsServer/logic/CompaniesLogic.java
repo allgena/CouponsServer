@@ -6,7 +6,6 @@ import com.genadi.MyCouponsServer.dal.ICustomerRepository;
 import com.genadi.MyCouponsServer.dal.IPurchaseRepository;
 import com.genadi.MyCouponsServer.dal.IUserRepository;
 import com.genadi.MyCouponsServer.dto.CompanyDto;
-import com.genadi.MyCouponsServer.dto.CouponDto;
 import com.genadi.MyCouponsServer.enams.CouponCategory;
 import com.genadi.MyCouponsServer.enams.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +51,8 @@ public class CompaniesLogic {
 
     public CompanyDto findCompanyById(long id) {
         CompanyDto company = companyRepository.findCompanyById(id);
-        List<CouponDto> companyCoupons = couponsLogic.findCouponsDtoByCompanyId(company.getCompanyId());
-        company.setCoupons(companyCoupons);
+//        List<CouponDto> companyCoupons = couponsLogic.findCouponsDtoByCompanyId(company.getCompanyId(), amountOfItemsPerPage, companyId);
+//        company.setCoupons(companyCoupons);
         Integer purchasesCount = purchaseRepository.countCompanyPurchases(company.getCompanyId());
         company.setNumberOfPurchases(purchasesCount);
         return company;
@@ -105,8 +104,8 @@ public class CompaniesLogic {
     public List<CompanyDto> findAllCompanies() {
         List<CompanyDto> allCompanies = companyRepository.findAllCompanies();
         for (CompanyDto company: allCompanies){
-            List<CouponDto> companyCoupons = couponsLogic.findCouponsDtoByCompanyId(company.getCompanyId());
-            company.setCoupons(companyCoupons);
+//            List<CouponDto> companyCoupons = couponsLogic.findCouponsDtoByCompanyId(company.getCompanyId(), amountOfItemsPerPage, companyId);
+//            company.setCoupons(companyCoupons);
             Integer purchasesCount = purchaseRepository.countCompanyPurchases(company.getCompanyId());
             company.setNumberOfPurchases(purchasesCount);
         }
@@ -119,8 +118,8 @@ public class CompaniesLogic {
         Page<Company> companies = companyRepository.findAll(pageable);
         for (Company company: companies){
             CompanyDto companyDto = new CompanyDto(company);
-            List<CouponDto> companyCoupons = couponsLogic.findCouponsDtoByCompanyId(company.getId());
-            companyDto.setCoupons(companyCoupons);
+//            List<CouponDto> companyCoupons = couponsLogic.findCouponsDtoByCompanyId(company.getId(), amountOfItemsPerPage, companyId);
+//            companyDto.setCoupons(companyCoupons);
             Integer purchasesCount = purchaseRepository.countCompanyPurchases(company.getId());
             companyDto.setNumberOfPurchases(purchasesCount);
             result.add(companyDto);

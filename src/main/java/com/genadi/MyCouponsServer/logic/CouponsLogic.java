@@ -53,13 +53,15 @@ public class CouponsLogic {
         couponRepository.deleteById(id);
     }
 
-    public List<CouponDto> findCouponsDtoByCompanyId(long companyId) {
-        List<CouponDto> companyCoupons = couponRepository.findCouponsDtoByCompanyId(companyId);
-        for (CouponDto coupon: companyCoupons){
-            coupon.setNumberOfPurchases(purchasesLogic.findPurchaseCountByCouponId(coupon.getCouponId()));
-        }
+    public List<CouponDto> findCouponsDtoByCompanyId(int pageNumber, int amountOfItemsPerPage, long companyId) {
+        Pageable pageable = PageRequest.of(pageNumber-1, amountOfItemsPerPage);
+        List<Coupon> coupons = couponRepository.findByCompanyId(companyId, pageable).getContent();
+        List<CouponDto> result = new ArrayList<>();
+        coupons.stream().forEach(c->{
+            result.add(new CouponDto(c));
+        });
+        return result;
 
-        return companyCoupons;
     }
 
     public List<Coupon> findByCompanyId(long companyId) {

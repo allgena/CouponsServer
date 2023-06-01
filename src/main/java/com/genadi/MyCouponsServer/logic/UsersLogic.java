@@ -73,9 +73,12 @@ public class UsersLogic {
         if (!user.getPassword().equals(userDetails.getPassword()))
             throw  new RuntimeException("User unauthorised");
         Long companyId  = null;
-        if (user.getCompany() != null)
+        String companyName = null;
+        if (user.getCompany() != null) {
             companyId = user.getCompany().getId();
-        SuccessfulLoginData successfulLoginData =  new SuccessfulLoginData(user.getId(), user.getUserName(), companyId, user.getUserType());
+            companyName = user.getCompany().getCompanyName();
+        }
+        SuccessfulLoginData successfulLoginData =  new SuccessfulLoginData(user.getId(), user.getUserName(), companyId,companyName, user.getUserType());
 
         return jwtUtils.createJWT(successfulLoginData);
     }

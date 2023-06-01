@@ -6,12 +6,14 @@ public class SuccessfulLoginData {
     private long id;
     private String userName;
     private Long companyId;
+    private String companyName;
     private UserType userType;
 
-    public SuccessfulLoginData(long id, String userName, Long companyId, UserType userType) {
+    public SuccessfulLoginData(long id, String userName, Long companyId, String companyName, UserType userType) {
         this.id = id;
         this.userName = userName;
         this.companyId = companyId;
+        this.companyName = companyName;
         this.userType = userType;
     }
 
@@ -45,5 +47,13 @@ public class SuccessfulLoginData {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

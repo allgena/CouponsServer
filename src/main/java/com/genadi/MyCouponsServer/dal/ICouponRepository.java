@@ -25,4 +25,6 @@ public interface ICouponRepository extends JpaRepository<Coupon,Long> {
         void deleteByCompanyId(long companyId);
 
         Page<Coupon> findByCategory(CouponCategory categoryEnum, Pageable pageable);
+
+        Page<Coupon> findByCompanyId(long companyId, Pageable pageable);
 }

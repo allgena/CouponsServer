@@ -73,9 +73,9 @@ public class CouponsController {
         couponsLogic.deleteById(id);
     }
 
-    @GetMapping("/company/{companyId}")
-    public List<CouponDto> getCouponsByCompanyId(@PathVariable long companyId) {
-        List<CouponDto> coupons = couponsLogic.findCouponsDtoByCompanyId(companyId);
+    @GetMapping("/company")
+    public List<CouponDto> getCouponsByCompanyId(@RequestParam int pageNumber, @RequestParam(defaultValue = "10") int amountOfItemsPerPage, @RequestParam long companyId) {
+        List<CouponDto> coupons = couponsLogic.findCouponsDtoByCompanyId(pageNumber, amountOfItemsPerPage, companyId);
         for (CouponDto coupon: coupons){
             Integer numberOfPurchases= purchasesLogic.findPurchaseCountByCouponId(coupon.getCouponId());
             coupon.setNumberOfPurchases(numberOfPurchases);
