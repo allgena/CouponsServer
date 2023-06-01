@@ -4,7 +4,7 @@ import com.genadi.MyCouponsServer.bean.User;
 import com.genadi.MyCouponsServer.enams.UserType;
 
 public class UserDto {
-    private long userId;
+    private Long userId;
     private String userName;
     private UserType userType;
     private String phoneNumber;
@@ -30,11 +30,11 @@ public class UserDto {
             this.companyName = user.getCompany().getCompanyName();
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

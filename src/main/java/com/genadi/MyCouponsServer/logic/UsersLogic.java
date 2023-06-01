@@ -1,7 +1,9 @@
 package com.genadi.MyCouponsServer.logic;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.genadi.MyCouponsServer.bean.Company;
 import com.genadi.MyCouponsServer.bean.User;
+import com.genadi.MyCouponsServer.dal.ICompanyRepository;
 import com.genadi.MyCouponsServer.dal.IUserRepository;
 import com.genadi.MyCouponsServer.dto.LoginDetailsDTO;
 import com.genadi.MyCouponsServer.dto.SuccessfulLoginData;
@@ -21,11 +23,14 @@ public class UsersLogic {
 
     private  JwtUtils jwtUtils;
 
+    private ICompanyRepository companyRepository;
+
     @Autowired
-    public UsersLogic(IUserRepository userRepository, JwtUtils jwtUtils)
+    public UsersLogic(IUserRepository userRepository, JwtUtils jwtUtils,ICompanyRepository companyRepository)
     {
         this.userRepository = userRepository;
         this.jwtUtils = jwtUtils;
+        this.companyRepository = companyRepository;
     }
 
     public List<UserDto> findAllUsers(){
@@ -52,9 +57,27 @@ public class UsersLogic {
         return userRepository.findById(id).get();
     }
 
-    public User save (User user)
+    public User save (User user){
+      return   userRepository.save(user);
+    }
+    public void save (UserDto userDto)
     {
-        return userRepository.save(user);
+        User user = userRepository.findByUserName(userDto.getUserName());
+        if (user == null)
+            throw  new RuntimeException("User not found");
+        user.setUserType(userDto.getUserType());
+        user.setPhoneNumber(userDto.getPhoneNumber());
+
+        if (userDto.getCompanyName() != null)
+        {
+            Company company = companyRepository.findByCompanyName(userDto.getCompanyName());
+            if (company == null) {
+                throw new RuntimeException("Company does not exist");
+            }
+            user.setCompany(company);
+        }
+
+       userRepository.save(user);
     }
 
     public void deleteById(long id) {

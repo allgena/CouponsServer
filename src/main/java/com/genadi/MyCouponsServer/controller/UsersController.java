@@ -25,7 +25,7 @@ public class UsersController {
     }
 
     @PutMapping
-    public void updateUser(@RequestBody User user) {
+    public void updateUser(@RequestBody UserDto user) {
         usersLogic.save(user);
     }
 
