@@ -33,7 +33,10 @@ public class CompaniesController {
     public List<CompanyDto> getAllCompanies() {
         return companiesLogic.findAllCompanies();
     }
-
+    @GetMapping("/names")
+    public List<String> getAllCompaniesName() {
+        return companiesLogic.findAllCompaniesNames();
+    }
     @GetMapping("/byPage")
     public Iterable<CompanyDto> getAllByPage(@RequestParam int pageNumber, @RequestParam int amountOfItemsPerPage)  {
         return companiesLogic.findAllByPage(pageNumber, amountOfItemsPerPage);

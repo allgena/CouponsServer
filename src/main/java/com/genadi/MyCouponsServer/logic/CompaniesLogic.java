@@ -130,4 +130,13 @@ public class CompaniesLogic {
     public Company findCompanyByName(String companyName) {
         return companyRepository.findByCompanyName(companyName);
     }
+
+    public List<String> findAllCompaniesNames() {
+        List<CompanyDto> companies = findAllCompanies();
+        List<String> result = new ArrayList<>();
+        for (CompanyDto company: companies){
+            result.add(company.getCompanyName());
+        }
+        return result;
+    }
 }
