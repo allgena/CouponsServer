@@ -29,6 +29,8 @@ public class CompanyDto {
         this.numberOfPurchases = numberOfPurchases;
     }
 
+    public CompanyDto() {
+    }
     public CompanyDto(Company company) {
         this.companyId = company.getId();
         this.companyName = company.getCompanyName();

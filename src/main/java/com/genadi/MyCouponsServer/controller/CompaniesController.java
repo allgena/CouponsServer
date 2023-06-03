@@ -23,8 +23,12 @@ public class CompaniesController {
     }
 
     @PutMapping
-    public Company updateCompany( @RequestBody Company company) {
-        if (companiesLogic.getById(company.getId()) == null ) throw new RuntimeException("company not found");
+    public Company updateCompany( @RequestBody CompanyDto companyDto) {
+        Company company = companiesLogic.getById(companyDto.getCompanyId());
+        if (company == null ) throw new RuntimeException("company not found");
+        company.setCompanyName(companyDto.getCompanyName());
+        company.setPhoneNumber(companyDto.getPhoneNumber());
+        company.setAddress(companyDto.getAddress());
         return companiesLogic.save(company);
     }
 
