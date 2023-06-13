@@ -49,17 +49,6 @@ public class LoginFilter implements Filter {
     }
 
     private boolean isRequestAWhitelisted(String methodType, String url) {
-//        if (url.startsWith("/users"))
-//            return true;
-//        if (url.startsWith("/purchases"))
-//            return true;
-//        if (url.startsWith("/customers"))
-//            return true;
-//        if (url.startsWith("/companies"))
-//            return true;
-//        if (url.startsWith("/coupons"))
-//            return true;
-
         //login
         if (methodType.equals("post") && url.startsWith("/users/login")){
             return true;
