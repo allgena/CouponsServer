@@ -4,7 +4,7 @@ public enum CouponCategory {
     FOOD("food4.jpg"),
     ELECTRONICS("electronics1.jpg"),
     TOYS("toy3.jpg"),
-    COSMETICS("cosmet2.png");
+    COSMETICS("cosmet4.png");
 
     private String image;
 

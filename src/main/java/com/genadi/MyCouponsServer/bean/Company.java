@@ -1,7 +1,6 @@
 package com.genadi.MyCouponsServer.bean;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "Companies")
@@ -15,9 +14,6 @@ public class Company {
     private String address;
     @Column
     private String phoneNumber;
-
-//    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "company")
-//    private List<User> users;
 
     public Company() {
     }

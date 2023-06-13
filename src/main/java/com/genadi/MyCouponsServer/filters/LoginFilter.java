@@ -65,15 +65,15 @@ public class LoginFilter implements Filter {
             return true;
         }
         //registration
-        if (methodType.equals("post") && url.startsWith("/customers")){
+        if (methodType.equals("post") && url.startsWith("/customers/register")){
             return true;
         }
         // Get coupons to not logged in users
-//        if (methodType.equals("get") && url.startsWith("/coupons")){
-//            return true;
-//        }
+        if (methodType.equals("get") && url.startsWith("/coupons")){
+            return true;
+        }
 
-        return true;
+        return false;
     }
 
     @Override

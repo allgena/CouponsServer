@@ -37,7 +37,6 @@ public class UsersController {
     @GetMapping("{userId}")
     public User getUserById(@PathVariable("userId") long id) {
         return usersLogic.getUserById(id);
-
     }
 
     @GetMapping
