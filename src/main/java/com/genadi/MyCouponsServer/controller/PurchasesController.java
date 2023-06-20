@@ -47,6 +47,10 @@ public class PurchasesController {
         return purchasesLogic.findAllByPage(pageNumber, amountOfItemsPerPage);
     }
 
+    @GetMapping("/company")
+    public Iterable<PurchaseDto> getPurchasesByCompany(@RequestParam int pageNumber, @RequestParam int amountOfItemsPerPage, @RequestParam long companyId)  {
+        return purchasesLogic.findByCompanyId(pageNumber, amountOfItemsPerPage, companyId);
+    }
 
     @DeleteMapping("{purchaseId}")
     public void deletePurchase(@PathVariable("purchaseId") long id) {

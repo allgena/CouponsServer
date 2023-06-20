@@ -1,4 +1,5 @@
 package com.genadi.MyCouponsServer.logic;
+
 import com.genadi.MyCouponsServer.bean.Purchase;
 import com.genadi.MyCouponsServer.dal.IPurchaseRepository;
 import com.genadi.MyCouponsServer.dto.PurchaseDto;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -64,5 +66,15 @@ public class PurchasesLogic {
 
     public void deleteByCouponId(long id) {
         purchaseRepository.deleteByCouponId(id);
+    }
+
+    public Iterable<PurchaseDto> findByCompanyId(int pageNumber, int amountOfItemsPerPage, long companyId) {
+        Pageable pageable = PageRequest.of(pageNumber-1, amountOfItemsPerPage);
+        List<Purchase> purchases = purchaseRepository.findByCompanyId(companyId, pageable).getContent();
+        List<PurchaseDto> result = new ArrayList<>();
+        purchases.stream().forEach(c->{
+            result.add(new PurchaseDto(c));
+        });
+        return result;
     }
 }
