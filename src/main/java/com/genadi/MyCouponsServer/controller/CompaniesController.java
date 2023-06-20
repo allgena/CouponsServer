@@ -12,7 +12,7 @@ import java.util.List;
 public class CompaniesController {
     private CompaniesLogic companiesLogic;
 
-//    @Autowired
+
     public CompaniesController(CompaniesLogic companiesLogic) {
         this.companiesLogic = companiesLogic;
     }

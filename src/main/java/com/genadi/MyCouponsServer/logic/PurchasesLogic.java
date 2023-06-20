@@ -1,5 +1,4 @@
 package com.genadi.MyCouponsServer.logic;
-
 import com.genadi.MyCouponsServer.bean.Purchase;
 import com.genadi.MyCouponsServer.dal.IPurchaseRepository;
 import com.genadi.MyCouponsServer.dto.PurchaseDto;
@@ -8,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

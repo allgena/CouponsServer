@@ -1,5 +1,4 @@
 package com.genadi.MyCouponsServer.controller;
-
 import com.genadi.MyCouponsServer.bean.Coupon;
 import com.genadi.MyCouponsServer.bean.Customer;
 import com.genadi.MyCouponsServer.bean.Purchase;
@@ -34,17 +33,8 @@ public class PurchasesController {
         purchase.setCoupon(coupon);
         purchase.setCustomer(customer);
         return purchasesLogic.save(purchase);
-
     }
-//    @PostMapping
-//    public Purchase createPurchase(@RequestBody Purchase purchase) {
-//        return purchasesLogic.save(purchase);
-//    }
-//
-//    @PutMapping
-//    public Purchase updatePurchase(@RequestBody Purchase purchase) {
-//        return purchasesLogic.save(purchase);
-//    }
+
 
 
     @GetMapping

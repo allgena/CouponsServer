@@ -19,4 +19,7 @@ public interface ICompanyRepository extends JpaRepository<Company,Long> {
     List<CompanyDto> findAllCompanies();
 
     Company findByCompanyName(String companyName);
+
+    @Query("select companyName from Company")
+    List<String> findCompaniesNames();
 }

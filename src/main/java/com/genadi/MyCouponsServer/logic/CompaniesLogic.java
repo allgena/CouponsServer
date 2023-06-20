@@ -51,8 +51,6 @@ public class CompaniesLogic {
 
     public CompanyDto findCompanyById(long id) {
         CompanyDto company = companyRepository.findCompanyById(id);
-//        List<CouponDto> companyCoupons = couponsLogic.findCouponsDtoByCompanyId(company.getCompanyId(), amountOfItemsPerPage, companyId);
-//        company.setCoupons(companyCoupons);
         Integer purchasesCount = purchaseRepository.countCompanyPurchases(company.getCompanyId());
         company.setNumberOfPurchases(purchasesCount);
         return company;
@@ -104,8 +102,6 @@ public class CompaniesLogic {
     public List<CompanyDto> findAllCompanies() {
         List<CompanyDto> allCompanies = companyRepository.findAllCompanies();
         for (CompanyDto company: allCompanies){
-//            List<CouponDto> companyCoupons = couponsLogic.findCouponsDtoByCompanyId(company.getCompanyId(), amountOfItemsPerPage, companyId);
-//            company.setCoupons(companyCoupons);
             Integer purchasesCount = purchaseRepository.countCompanyPurchases(company.getCompanyId());
             company.setNumberOfPurchases(purchasesCount);
         }
@@ -118,8 +114,6 @@ public class CompaniesLogic {
         Page<Company> companies = companyRepository.findAll(pageable);
         for (Company company: companies){
             CompanyDto companyDto = new CompanyDto(company);
-//            List<CouponDto> companyCoupons = couponsLogic.findCouponsDtoByCompanyId(company.getId(), amountOfItemsPerPage, companyId);
-//            companyDto.setCoupons(companyCoupons);
             Integer purchasesCount = purchaseRepository.countCompanyPurchases(company.getId());
             companyDto.setNumberOfPurchases(purchasesCount);
             result.add(companyDto);
@@ -132,11 +126,6 @@ public class CompaniesLogic {
     }
 
     public List<String> findAllCompaniesNames() {
-        List<CompanyDto> companies = findAllCompanies();
-        List<String> result = new ArrayList<>();
-        for (CompanyDto company: companies){
-            result.add(company.getCompanyName());
-        }
-        return result;
+       return  companyRepository.findCompaniesNames();
     }
 }
