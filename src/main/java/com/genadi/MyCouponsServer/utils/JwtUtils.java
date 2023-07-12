@@ -3,12 +3,13 @@ package com.genadi.MyCouponsServer.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.genadi.MyCouponsServer.dto.SuccessfulLoginData;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
@@ -21,17 +22,24 @@ public class JwtUtils {
     @Autowired
     ObjectMapper objectMapper;
 
-    public static Claims decodeJWT(String jwt) {
+    public static String decodeJWT(String jwt) {
+        jwt = jwt.replace("Bearer ", "");
         //This line will throw an exception if it is not a signed JWS (as expected)
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(JWT_KEY);
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
-        Claims claims = Jwts.parser()
+        return Jwts.parser()
                 .setSigningKey(signingKey)
-                .parseClaimsJws(jwt).getBody();
-        return claims;
+                .parseClaimsJws(jwt).getBody().getSubject();
+
+    }
+
+    public  SuccessfulLoginData decodeUserDetails() throws JsonProcessingException {
+        String jwtToken= ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("Authorization");
+        String decodedJWT = decodeJWT(jwtToken);
+        return objectMapper.readValue(decodedJWT, SuccessfulLoginData.class);
     }
     public  String createJWT(SuccessfulLoginData succssfulLoginDetails) throws JsonProcessingException {
         String jsonLoginDetails = objectMapper.writeValueAsString(succssfulLoginDetails);
@@ -73,6 +81,6 @@ public class JwtUtils {
     }
 
     public  void validateToken(String token) throws Exception {
-        Claims claims = decodeJWT(token.replace("Bearer ", ""));
+        decodeJWT(token.replace("Bearer ", ""));
     }
 }

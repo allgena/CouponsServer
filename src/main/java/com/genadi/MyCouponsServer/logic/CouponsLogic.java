@@ -1,6 +1,7 @@
 package com.genadi.MyCouponsServer.logic;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.genadi.MyCouponsServer.bean.Coupon;
 import com.genadi.MyCouponsServer.bean.Purchase;
 import com.genadi.MyCouponsServer.dal.ICouponRepository;
@@ -97,5 +98,13 @@ public class CouponsLogic {
         return result;
 
 
+    }
+    public List<CouponDto> getCouponsByCompanyId(int pageNumber,  int amountOfItemsPerPage, long companyId) throws JsonProcessingException {
+        List<CouponDto> coupons = findCouponsDtoByCompanyId(pageNumber, amountOfItemsPerPage, companyId);
+        for (CouponDto coupon: coupons){
+            Integer numberOfPurchases= purchasesLogic.findPurchaseCountByCouponId(coupon.getCouponId());
+            coupon.setNumberOfPurchases(numberOfPurchases);
+        }
+        return coupons;
     }
 }

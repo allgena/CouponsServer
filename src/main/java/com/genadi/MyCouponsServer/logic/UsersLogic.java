@@ -21,33 +21,32 @@ import java.util.List;
 public class UsersLogic {
     private IUserRepository userRepository;
 
-    private  JwtUtils jwtUtils;
+    private JwtUtils jwtUtils;
 
     private ICompanyRepository companyRepository;
 
     @Autowired
-    public UsersLogic(IUserRepository userRepository, JwtUtils jwtUtils,ICompanyRepository companyRepository)
-    {
+    public UsersLogic(IUserRepository userRepository, JwtUtils jwtUtils, ICompanyRepository companyRepository) {
         this.userRepository = userRepository;
         this.jwtUtils = jwtUtils;
         this.companyRepository = companyRepository;
     }
 
-    public List<UserDto> findAllUsers(){
+    public List<UserDto> findAllUsers() {
 
         List<UserDto> result = new ArrayList<>();
         Iterable<User> users = userRepository.findAll();
-        for (User user: users){
+        for (User user : users) {
             result.add(new UserDto(user));
         }
         return result;
     }
 
     public Iterable<UserDto> findAllByPage(int pageNumber, int amountOfItemsPerPage) {
-        Pageable pageable = PageRequest.of(pageNumber-1, amountOfItemsPerPage);
+        Pageable pageable = PageRequest.of(pageNumber - 1, amountOfItemsPerPage);
         List<User> coupons = userRepository.findAll(pageable).getContent();
         List<UserDto> result = new ArrayList<>();
-        coupons.stream().forEach(c->{
+        coupons.stream().forEach(c -> {
             result.add(new UserDto(c));
         });
         return result;
@@ -57,19 +56,18 @@ public class UsersLogic {
         return userRepository.findById(id).get();
     }
 
-    public User save (User user){
-      return   userRepository.save(user);
+    public User save(User user) {
+        return userRepository.save(user);
     }
-    public void save (UserDto userDto)
-    {
+
+    public void save(UserDto userDto) {
         User user = userRepository.findByUserName(userDto.getUserName());
         if (user == null)
-            throw  new RuntimeException("User not found");
+            throw new RuntimeException("User not found");
         user.setUserType(userDto.getUserType());
         user.setPhoneNumber(userDto.getPhoneNumber());
 
-        if (userDto.getCompanyName() != null)
-        {
+        if (userDto.getCompanyName() != null) {
             Company company = companyRepository.findByCompanyName(userDto.getCompanyName());
             if (company == null) {
                 throw new RuntimeException("Company does not exist");
@@ -77,7 +75,7 @@ public class UsersLogic {
             user.setCompany(company);
         }
 
-       userRepository.save(user);
+        userRepository.save(user);
     }
 
     public void deleteById(long id) {
@@ -91,17 +89,17 @@ public class UsersLogic {
     public String login(LoginDetailsDTO userDetails) throws JsonProcessingException {
         User user = userRepository.findByUserName(userDetails.getUserName());
         if (user == null)
-            throw  new RuntimeException("User not found");
+            throw new RuntimeException("User not found");
 
         if (!user.getPassword().equals(userDetails.getPassword()))
-            throw  new RuntimeException("User unauthorised");
-        Long companyId  = null;
+            throw new RuntimeException("User unauthorised");
+        Long companyId = null;
         String companyName = null;
         if (user.getCompany() != null) {
             companyId = user.getCompany().getId();
             companyName = user.getCompany().getCompanyName();
         }
-        SuccessfulLoginData successfulLoginData =  new SuccessfulLoginData(user.getId(), user.getUserName(), companyId,companyName, user.getUserType());
+        SuccessfulLoginData successfulLoginData = new SuccessfulLoginData(user.getId(), user.getUserName(), companyId, companyName, user.getUserType());
 
         return jwtUtils.createJWT(successfulLoginData);
     }

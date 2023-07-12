@@ -1,16 +1,19 @@
 package com.genadi.MyCouponsServer.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.genadi.MyCouponsServer.bean.Company;
 import com.genadi.MyCouponsServer.bean.Coupon;
 import com.genadi.MyCouponsServer.dto.CouponDto;
+import com.genadi.MyCouponsServer.dto.SuccessfulLoginData;
+import com.genadi.MyCouponsServer.enams.UserType;
 import com.genadi.MyCouponsServer.logic.CompaniesLogic;
 import com.genadi.MyCouponsServer.logic.CouponsLogic;
 import com.genadi.MyCouponsServer.logic.PurchasesLogic;
+import com.genadi.MyCouponsServer.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("/coupons")
@@ -19,11 +22,13 @@ public class CouponsController {
     private CompaniesLogic companiesLogic;
 
     private PurchasesLogic purchasesLogic;
+    private JwtUtils jwtUtils;
     @Autowired
-    public CouponsController(CouponsLogic couponsLogic, CompaniesLogic companiesLogic, PurchasesLogic purchasesLogic) {
+    public CouponsController(CouponsLogic couponsLogic, CompaniesLogic companiesLogic, PurchasesLogic purchasesLogic,JwtUtils jwtUtils) {
         this.couponsLogic = couponsLogic;
         this.companiesLogic = companiesLogic;
         this.purchasesLogic = purchasesLogic;
+        this.jwtUtils = jwtUtils;
     }
 
     @GetMapping
@@ -32,9 +37,15 @@ public class CouponsController {
     }
 
     @GetMapping("byPage")
-    public Iterable<CouponDto> getCouponsByPage(@RequestParam int pageNumber, @RequestParam(defaultValue = "10") int amountOfItemsPerPage, @RequestParam(required = false) String category) {
+    public Iterable<CouponDto> getCouponsByPage(@RequestParam int pageNumber, @RequestParam(defaultValue = "10") int amountOfItemsPerPage, @RequestParam(required = false) String category) throws JsonProcessingException {
+        SuccessfulLoginData userData = jwtUtils.decodeUserDetails();
+
         if (category== null || category.equalsIgnoreCase("All"))
-            return couponsLogic.findAllByPage(pageNumber, amountOfItemsPerPage);
+            if (userData.getUserType().equals(UserType.COMPANY))
+            {
+                return couponsLogic.getCouponsByCompanyId(pageNumber, amountOfItemsPerPage, userData.getCompanyId());
+            }
+            else return couponsLogic.findAllByPage(pageNumber, amountOfItemsPerPage);
         else
             return  couponsLogic.findCouponsDtoByCategory(category, pageNumber,amountOfItemsPerPage);
     }
@@ -73,13 +84,4 @@ public class CouponsController {
         couponsLogic.deleteById(id);
     }
 
-    @GetMapping("/company")
-    public List<CouponDto> getCouponsByCompanyId(@RequestParam int pageNumber, @RequestParam(defaultValue = "10") int amountOfItemsPerPage, @RequestParam long companyId) {
-        List<CouponDto> coupons = couponsLogic.findCouponsDtoByCompanyId(pageNumber, amountOfItemsPerPage, companyId);
-        for (CouponDto coupon: coupons){
-            Integer numberOfPurchases= purchasesLogic.findPurchaseCountByCouponId(coupon.getCouponId());
-            coupon.setNumberOfPurchases(numberOfPurchases);
-        }
-        return coupons;
-    }
 }
