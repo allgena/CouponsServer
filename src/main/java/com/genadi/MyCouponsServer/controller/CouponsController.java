@@ -12,6 +12,8 @@ import com.genadi.MyCouponsServer.logic.PurchasesLogic;
 import com.genadi.MyCouponsServer.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.sql.Date;
 
@@ -38,10 +40,17 @@ public class CouponsController {
 
     @GetMapping("byPage")
     public Iterable<CouponDto> getCouponsByPage(@RequestParam int pageNumber, @RequestParam(defaultValue = "10") int amountOfItemsPerPage, @RequestParam(required = false) String category) throws JsonProcessingException {
-        SuccessfulLoginData userData = jwtUtils.decodeUserDetails();
+        String jwtToken= ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("Authorization");
+        UserType userType = UserType.CUSTOMER;
+        SuccessfulLoginData userData = null;
+        if (jwtToken != null && !jwtToken.isEmpty() && !jwtToken.equals("null"))
+        {
+            userData = jwtUtils.decodeUserDetails();
+            userType = userData.getUserType();
+        }
 
         if (category== null || category.equalsIgnoreCase("All"))
-            if (userData.getUserType().equals(UserType.COMPANY))
+            if (userType.equals(UserType.COMPANY))
             {
                 return couponsLogic.getCouponsByCompanyId(pageNumber, amountOfItemsPerPage, userData.getCompanyId());
             }
